@@ -1,6 +1,6 @@
 import re
 import dash
-from dash import Dash, html, Input, Output, dcc, ctx
+from dash import Dash, html, Input, Output, dcc, ctx, callback
 import dash_daq as daq
 import pandas as pd
 import os
@@ -21,16 +21,7 @@ for log in os.listdir("logs"):
         lengthMax = length
         idLength = log
 
-external_stylesheets = [
-    {
-        "href": "https://fonts.googleapis.com/css2?"
-        "family=Lato:wght@400;700&display=swap",
-        "rel": "stylesheet",
-    },
-]
 
-app = Dash(__name__, external_stylesheets=external_stylesheets)
-app.title = "FSB: Dynacar Log  Reader"
 
 layout = html.Div(
     children=[
@@ -382,7 +373,7 @@ layout = html.Div(
 )
 
 #########CALLBACKS################
-@app.callback(
+@callback(
     [Output("price-chart", "figure"), Output("log-filter", "multi"), Output("corner1-chart", "figure"), Output("corner2-chart", "figure"), Output("corner3-chart", "figure"), Output("corner4-chart", "figure") ],
     [
         Input("comparisons", "on"),
@@ -401,9 +392,3 @@ def update_charts(on, log, dato, value, datoCorner):
     corner_4 = figureCreator.createFigure2(dataDict, on, log, datoCorner, value, ctx.triggered_id == 'comparisons', 4)
 
     return figure_1, multi, corner_1, corner_2, corner_3, corner_4
-
-def getBody():
-    return app.layout
-
-if __name__ == "__main__":
-    app.run_server(debug=True)
