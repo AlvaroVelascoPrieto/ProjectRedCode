@@ -4,7 +4,6 @@ from dash import html, Dash, Input, ctx, Output
 from dash.exceptions import PreventUpdate
 
 dash.register_page(__name__, path='/')
-
 def layout():
     return html.Div(id="body",
         children=[
@@ -33,7 +32,7 @@ def layout():
                             html.P(
                                 "Live telemetry data representation."
                             ),
-                            dbc.Button("Open App", id="LiveButton", color="light", outline=True, n_clicks=0 ),
+                            dbc.Button("Open App", id="LiveButton", color="light", outline=True, n_clicks=0 , href=dash.page_registry['pages.telemetry']['path']),
                         ],
                         className="h-100 p-5 text-white bg-secondary rounded-3 card",
                     ),

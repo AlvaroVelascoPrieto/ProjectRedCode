@@ -4419,7 +4419,7 @@ input[type="button"].btn-block {
   background-color: #fff;
   background-clip: border-box;
   border: 1px solid rgba(0, 0, 0, 0.125);
-  border-radius: 0.25rem;
+  border-radius: 0.15rem;
 }
 
 .card > hr {
@@ -10059,7 +10059,6 @@ a.text-dark:hover, a.text-dark:focus {
 
 .body{
     background-color:var(--primary);
-    height: 100vh;
 }
 
 .header {
@@ -10127,6 +10126,11 @@ div.margin {
     box-shadow: 0 4px 6px 0 rgba(0, 0, 0, 0.18);
 }
 
+.cardGraph{
+    width:100%;
+    height:100%;
+}
+
 .menu {
     height: auto;
     width: 980px;
@@ -10182,12 +10186,25 @@ div.margin {
   grid-row-gap: 20px;
   }
 
+.container2{
+  margin: auto auto;
+  width:100%;
+  height:auto;
+  display:grid;
+  grid-template-columns: 32.5% 32.5% 32.5%;
+  padding-left:5px;
+  padding-top:20px;
+  padding-bottom:20px;
+  grid-row: auto auto;
+  grid-column-gap: 10px;
+  grid-row-gap: 10px;
+ }
+
 .box{
    background-color:#fff;
    padding:20px;
    border-radius:10px;
    color:#000;
-   display:flex;
    align-items:center;
    justify-content:center;
    font-size:40px;
@@ -10196,8 +10213,8 @@ div.margin {
 
 .cornerWrapper {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  grid-auto-rows: 100px;
+  grid-template-columns: repeat(3, auto-fill);
+  grid-auto-rows: 50px;
 }
 
 .box1 {
@@ -10213,7 +10230,6 @@ div.margin {
   grid-column-end: 4;
   grid-row-start: 1;
   grid-row-end: 1;
-  padding-top:22px;
   color:#000;
 }
 
@@ -10221,11 +10237,75 @@ div.margin {
   grid-column-start: 1;
   grid-column-end: 4;
   grid-row-start: 2;
+  grid-row-end: 11;
+}
+
+.box4{
+  grid-column-start: 1;
+  grid-column-end: 2;
+  grid-row-start: 3;
+  grid-row-end: 8;
+}
+
+.box5{
+  grid-column-start: 1;
+  grid-column-end: 2;
+  grid-row-start: 9;
+  grid-row-end: 11;
+}
+
+.box6{
+  grid-column-start: 2;
+  grid-column-end: 3;
+  grid-row-start: 9;
+  grid-row-end: 11;
+}
+
+.box7{
+  grid-column-start: 3;
+  grid-column-end: 4;
+  grid-row-start: 9;
+  grid-row-end: 11;
+}
+
+.box8{
+  grid-column-start: 2;
+  grid-column-end: 3;
+  grid-row-start: 3;
   grid-row-end: 5;
 }
 
+.box9{
+  grid-column-start: 3;
+  grid-column-end: 4;
+  grid-row-start: 3;
+  grid-row-end: 5;
+}
+
+.box10{
+  grid-column-start: 2;
+  grid-column-end: 3;
+  grid-row-start: 6;
+  grid-row-end: 11;
+}
+
+.box11{
+  grid-column-start: 3;
+  grid-column-end: 4;
+  grid-row-start: 6;
+  grid-row-end: 11;
+}
+
+
 .corner-logo{
-    max-width:76px;
+    max-width:86px;
+    margin-left:0px;
+}
+
+.pedalbox-logo{
+    margin-top:-20px;
+    margin-left:40px;
+    max-width:96px;
     margin-left:0px;
 }
 
@@ -10260,3 +10340,7 @@ div.margin {
    background-size: cover;
 }
 
+.statuswordtit{
+    margin-top:0px;
+    margin-botton: 0px;
+}
