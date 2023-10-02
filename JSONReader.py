@@ -3,6 +3,10 @@ from json import JSONDecodeError
 
 PilaId0001 =['0000000000000000' for i in range(50)]
 PilaId0310 =['0000000000000000' for i in range(50)]
+PilaCurrentFL = ['0000000000000000' for i in range(50)]
+PilaCurrentFR = ['0000000000000000' for i in range(50)]
+PilaCurrentRL = ['0000000000000000' for i in range(50)]
+PilaCurrentRR = ['0000000000000000' for i in range(50)]
 
 def set_0310(data):
     data = dict(data)
@@ -19,6 +23,18 @@ def set_0001(data):
 
 def get_0001():
     return PilaId0001
+
+def get_currentFL():
+    return PilaCurrentFL
+
+def get_currentFR():
+    return PilaCurrentFR
+
+def get_currentRL():
+    return PilaCurrentRL
+
+def get_currentRR():
+    return PilaCurrentRR
 
 def get_data():
     try:

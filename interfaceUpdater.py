@@ -16,11 +16,43 @@ STATES = {'00' : 'Safe 1',
     '0e' : 'Safe OK'
 }
 
+CARSTATES = {
+    '00' : 'Init',
+    '01' : 'Standby',
+    '02' : 'Precharge',
+    '03' : 'Energized',
+    '04' : 'Running',
+    '05' : 'Error'
+}
+
+AMSSTATES = {
+    '01' : 'Charge waiting',
+    '02' : 'Charge precharge',
+    '03' : 'Charge charging',
+    '04' : 'Car waiting',
+    '05' : 'Car precharge',
+    '06' : 'Car RTD',
+    '07' : 'Error',
+    '08' : 'Critical Error'
+}
+
+AMSERRORS = {
+    '1' : 'VLoad',
+    '2' : 'IMD',
+    '4' : 'ECU Timeout',
+    '8' : 'Current',
+    '16' : 'Error contactores',
+    '32' : 'Voltaje',
+    '64' : 'Temperatura',
+    '128' : 'Slaves Timeout'
+}
+
 def updateFigure1(data):
     datosAcc = [int(i[10:12],base=16) for i in data]
     datosBrk = [int(i[6:8],base=16) for i in data]
     datosX = [i for i in range(len(datosAcc))]
     figure_1 = go.Figure(
+
         data = [go.Scatter(
             x = datosX,
             y = datosAcc,
@@ -37,6 +69,7 @@ def updateFigure1(data):
             ),
         ]
     )
+    figure_1['layout']['yaxis'] = {'range': (0, 250)}
     return figure_1
 
 
@@ -60,13 +93,8 @@ def updateFigure2(data):
             },
         ],
         "layout": {
-            "title": {
-                "text": 'dato',
-                "x": 0.05,
-                "xanchor": "left",
-            },
             "xaxis": {"fixedrange": True},
-            "yaxis": {"fixedrange": True},
+            "yaxis": {"range":(0,200)},
             "colorway": ["#e30202", "#302f2f", "#000000", "#15ff00", "#0062ff", "#ff00f7"],
         },
     }
@@ -86,11 +114,15 @@ def updateVoltages(data):
     return totalVoltage, minVoltage, idMinVoltage, colorVoltage
 
 
-def contactorFeedback(data):
+def contactorFeedbackAndAMSState(data):
     k1 = 'green' if bin(int(data[2:4][0:2], base=16))[-1] == '1' else 'grey'
     k2 = 'green' if bin(int(data[2:4][0:2], base=16))[-2] == '1' else 'grey'
     k3 = 'green' if bin(int(data[2:4][0:2], base=16))[-3] == '1' else 'grey'
-    return k1, k2, k3
+    smAMS = str(data[0:2][0:2])
+    smAMS = AMSSTATES.get(smAMS)
+    errorAMS = str(int(data[4:6][0:2], base=16))
+    errorAMS = AMSERRORS.get(errorAMS)
+    return k1, k2, k3, smAMS, errorAMS
 
 
 def safetyFront(data):
@@ -126,8 +158,14 @@ def safety(data):
     safety = STATES.get(state)
     imd = 'red' if str(data[8:10][0:2])=='01' else 'grey'
     ams = 'red' if str(data[10:12][0:2]) == '01' else 'grey'
-    plausibility = 'yellow' if str(data[8:10][0:2]) == '01' else 'grey'
-    return safety, imd, ams, plausibility
+    plausibility = 'yellow' if str(data[14:16][0:2]) == '01' else 'grey'
+    carState=str(data[0:2][0:2])
+    try:
+        carState = CARSTATES.get(carState)
+    except KeyError:
+        carState = "TETAS"
+
+    return safety, imd, ams, plausibility, carState
 
 def motorData(data1, data2, data3, data4):
     sw1 = int(data1[2:4]+data1[0:2],base=16)
@@ -149,6 +187,8 @@ def motorRPM(data1, data2, data3, data4):
 
 
 def powerAndDCVoltage(data1, data2, data3, data4):
+    #Aviso 60
+    #Max 100
     temp1 = int(data1[2:4] + data1[0:2], base=16) * 0.0625
     temp2 = int(data2[2:4] + data2[0:2], base=16) * 0.0625
     temp3 = int(data3[2:4] + data3[0:2], base=16) * 0.0625
@@ -158,3 +198,59 @@ def powerAndDCVoltage(data1, data2, data3, data4):
     power3 = int(data3[6:8] + data3[4:6], base=16) * 16
     power4 = int(data4[6:8] + data4[4:6], base=16) * 16
     return temp1, temp2, temp3, temp4, power1, power2, power3, power4
+
+
+def speedAndYawRateRef(data):
+    speed = round(int(data[12:14], base=16)*3.6, 1)
+    yawRateRef = int(data[14:16], base=16)
+    return speed, yawRateRef
+
+
+def torqueCommands(data1, data2, data3, data4):
+    tqCom1 = int(data1[14:16] + data1[12:14], base=16)
+    tqCom2 = int(data2[2:4] + data2[0:2], base=16)
+    tqCom3 = int(data3[14:16] + data3[12:14], base=16)
+    tqCom4 = int(data4[2:4] + data4[0:2], base=16)
+    return tqCom1, tqCom2, tqCom3, tqCom4
+
+
+def currents(data1, data2, data3, data4):
+    current1 = [int(i[12:14] + i[14:16], base=16) for i in data1]
+    current2 = [int(i[12:14] + i[14:16], base=16) for i in data2]
+    current3 = [int(i[12:14] + i[14:16], base=16) for i in data3]
+    current4 = [int(i[12:14] + i[14:16], base=16) for i in data4]
+    datosX = [i for i in range(len(current1))]
+    figure_1 = go.Figure(
+
+        data=[go.Scatter(
+            x=datosX,
+            y=current1,
+            mode='lines',
+            name='Current FL',
+            marker=dict(color='green')
+        ),
+            go.Scatter(
+                x=datosX,
+                y=current2,
+                mode='lines',
+                name='Current FR',
+                marker=dict(color='red')
+            ),
+            go.Scatter(
+                x=datosX,
+                y=current3,
+                mode='lines',
+                name='Current RL',
+                marker=dict(color='red')
+            ),
+            go.Scatter(
+                x=datosX,
+                y=current4,
+                mode='lines',
+                name='Current RR',
+                marker=dict(color='red')
+            ),
+        ]
+    )
+    figure_1['layout']['yaxis'] = {'range': (-200, 200)}
+    return figure_1
