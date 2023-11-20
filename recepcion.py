@@ -30,11 +30,12 @@ dictionary = {
     "038f": "0000000000000000",
     "028e": "0000000000000000",
     "038e": "0000000000000000",
-
-"020e": "0000000000000000",
+    "020e": "0000000000000000",
     "040e": "0000000000000000",
     "020f": "0000000000000000",
-    "040f": "0000000000000000"
+    "040f": "0000000000000000",
+    "0122": "0000000000000000",
+    "0181": "0000000000000000"
 }
 while True:
     #empiece=time.time()
@@ -43,9 +44,9 @@ while True:
         #print(data)
         #sock.close()
         msg = str(data.hex())
-        #print(msg)
+
         id = msg[0:4]
-        dictionary.update({str(id) : str(''.join(map(str, msg[4:-1]))).removeprefix('c2')})
+        dictionary.update({str(id) : str(''.join(map(str, msg[4:]))).removeprefix('c2')})
         #print(dictionary)
         #print(id)
     except TimeoutError:

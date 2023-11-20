@@ -37,6 +37,7 @@ AMSSTATES = {
 }
 
 AMSERRORS = {
+    '0' : 'OK',
     '1' : 'VLoad',
     '2' : 'IMD',
     '4' : 'ECU Timeout',
@@ -102,16 +103,18 @@ def updateFigure2(data):
 
 
 def updateVoltages(data):
-    minVoltage = round(float(int(data[0:2], base=16) / 50.0),3)
+    minVoltage = round(float(int(data[0:2], base=16) / 51.0),3)
     totalVoltage = round(minVoltage*144,4)
-    idMinVoltage = int(data[1][0:2], base=16)
+    idMinVoltage = int(data[2:4][0:2], base=16)
+    maxVoltage = round(float(int(data[4:6], base=16) / 51.0), 3)
+    idMaxVoltage = int(data[6:8][0:2], base=16)
     if totalVoltage>532.8:
         colorVoltage='green'
     elif totalVoltage>512:
         colorVoltage='orange'
     else:
         colorVoltage='red'
-    return totalVoltage, minVoltage, idMinVoltage, colorVoltage
+    return totalVoltage, minVoltage, idMinVoltage, colorVoltage, maxVoltage, idMaxVoltage
 
 
 def contactorFeedbackAndAMSState(data):
@@ -201,8 +204,8 @@ def powerAndDCVoltage(data1, data2, data3, data4):
 
 
 def speedAndYawRateRef(data):
-    speed = round(int(data[12:14], base=16)*3.6, 1)
-    yawRateRef = int(data[14:16], base=16)
+    speed = round(int(data[8:10], base=16)*3.6/10, 4)
+    yawRateRef = int(data[10:12], base=16)
     return speed, yawRateRef
 
 
@@ -221,7 +224,6 @@ def currents(data1, data2, data3, data4):
     current4 = [int(i[12:14] + i[14:16], base=16) for i in data4]
     datosX = [i for i in range(len(current1))]
     figure_1 = go.Figure(
-
         data=[go.Scatter(
             x=datosX,
             y=current1,
@@ -241,16 +243,56 @@ def currents(data1, data2, data3, data4):
                 y=current3,
                 mode='lines',
                 name='Current RL',
-                marker=dict(color='red')
+                marker=dict(color='grey')
             ),
             go.Scatter(
                 x=datosX,
                 y=current4,
                 mode='lines',
                 name='Current RR',
-                marker=dict(color='red')
+                marker=dict(color='blue')
             ),
         ]
     )
     figure_1['layout']['yaxis'] = {'range': (-200, 200)}
     return figure_1
+
+
+def updateYawRate(data1, data2):
+    yawRate = [int(i[10:12] + i[8:10], base=16)/1000 for i in data1]
+    yawRateRef = [int(i[10:12], base=16) for i in data2]
+    datosX = [i for i in range(len(yawRate))]
+    figure_1 = go.Figure(
+        data=[go.Scatter(
+            x=datosX,
+            y=yawRate,
+            mode='lines',
+            name='Yaw Rate',
+            marker=dict(color='red')
+        ),
+            go.Scatter(
+                x=datosX,
+                y=yawRateRef,
+                mode='lines',
+                name='Yaw Rate Ref',
+                marker=dict(color='grey')
+        ),
+        ]
+    )
+    figure_1['layout']['yaxis'] = {'range': (-3, 3)}
+    return figure_1
+
+def updateSteeringWheel(data1):
+    steeringWheel = round((int(data1[2:4], base=16) - 120) * 0.2083, 5)
+    return steeringWheel
+
+
+def dashData(data):
+    power = int(data[8:10], base=16)
+    tvValue = int(data[6:8], base=16)
+    return power, tvValue
+
+
+def tvRunning(data):
+    tvRunning = 'green' if bin(int(data[14:16][0:2], base=16))[-1] == '1' else 'grey'
+    return tvRunning
