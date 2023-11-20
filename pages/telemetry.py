@@ -1,12 +1,9 @@
-import socket
-import time
-
 import dash_daq as daq
 import dash
 from dash import html, callback, Output, Input, dcc
 import interfaceUpdater
 from JSONReader import get_data, get_0310, get_0001, get_currentFL, get_currentFR, get_currentRL, \
-    get_currentRR
+    get_currentRR, get_YawRate, get_YawRateRef
 
 pilaId0310=[0,0,0,0,0,0,0,0,0,0]
 dash.register_page(__name__)
@@ -102,7 +99,8 @@ layout = html.Div(id='element-to-hide', style={'display':'none'}),\
                                 ),
                                 html.Div(
                                     children=daq.LEDDisplay(
-                                            label={'label':"Cell max temp", 'style':{'font-weight': 'bold','font-size':'16px'}},
+                                            id='cellMaxVoltage',
+                                            label={'label':"Cell max voltage", 'style':{'font-weight': 'bold','font-size':'16px'}},
                                             labelPosition='top',
                                             value='0',
                                             color="black"
@@ -112,7 +110,8 @@ layout = html.Div(id='element-to-hide', style={'display':'none'}),\
                                 ),
                                 html.Div(
                                     children=daq.LEDDisplay(
-                                            label={'label':"ID cell max temp", 'style':{'font-weight': 'bold','font-size':'16px'}},
+                                            id='idCellMaxVoltage',
+                                            label={'label':"ID cell max voltage", 'style':{'font-weight': 'bold','font-size':'16px'}},
                                             labelPosition='top',
                                             value='0',
                                             color="black"
@@ -153,6 +152,13 @@ layout = html.Div(id='element-to-hide', style={'display':'none'}),\
                                             id='errorAMS',
                                             style={'font-size':'26px'}
                                             ),
+                                            #html.Div(children=[daq.Indicator(label={'label':"Aux 1"},color="green",value=True),
+                                            #                    daq.Indicator(label={'label':"Aux 2"},color="green",value=True),
+                                            #                    daq.Indicator(label={'label':"Start"},color="green",value=True),
+                                            #                    daq.Indicator(label={'label':"Load on"},color="green",value=True),
+                                            #                    daq.Indicator(label={'label':"TV"},color="green",value=True),
+                                            #                    daq.Indicator(label={'label':"Power"},color="green",value=True),
+                                            #],className="inline")
                                     ],
                                     className="box4"
                                 ),
@@ -248,13 +254,21 @@ layout = html.Div(id='element-to-hide', style={'display':'none'}),\
                                     className="box2"
                                 ),
                                 html.Div(
-                                    children=dcc.Graph(
+                                    children=[dcc.Graph(
                                         id="grafico-1",
                                         figure={'layout':{"autosize":False}},
                                         style={'width': '100%', 'height':'100%', 'margin':{'l':'0','r':'0','b':'0','t':'0'}},
                                         config={"responsive":True,"displayModeBar": False, "edits":{"titleText":False,"legendText":False, "annotationPosition":False,"colorbarTitleText":False},"displayModeBar":True},
 
                                     ),
+                                    dcc.Slider( -28, 28, 0.5, value=0,  included=False, id="volante",
+                                                    tooltip={"placement": "bottom", "always_visible": True},
+                                                    marks={
+                                                            0: {'label': '0°', 'style': {'color': '#f50', 'size':'18px'}},
+
+                                                        },
+                                               ),
+                                    ],
                                     className="box3"
                                 )
                             ],
@@ -616,6 +630,92 @@ layout = html.Div(id='element-to-hide', style={'display':'none'}),\
                         )
                     ],
                     className="box"
+                ),
+                html.Div(
+                    children=[
+                        html.Div(
+                            children=[
+                                html.Div(
+                                    children=html.Img(src="../assets/Motor.png", className="pedalbox-logo"),
+                                    className="box1"
+                                ),
+                                html.Div(
+                                    children="Torque Vectoring",
+                                    className="box2"
+                                ),
+                                html.Div(
+                                    children=dcc.Graph(
+                                        id="YawRate-Graph",
+                                        figure={'layout':{"autosize":False}},
+                                        style={'width': '100%', 'height':'100%', 'margin':{'l':'0','r':'0','b':'0','t':'0'}},
+                                        config={"responsive":True,"displayModeBar": False, "edits":{"titleText":False,"legendText":False, "annotationPosition":False,"colorbarTitleText":False},"displayModeBar":True},
+
+                                    ),
+                                    className="box3"
+                                )
+
+
+
+                            ],
+                            className="cornerWrapper"
+                        )
+                    ],
+                    className="box"
+                ),
+                html.Div(
+                    children=[
+                        html.Div(
+                            children=[
+                                html.Div(
+                                    children=html.Img(src="../assets/Motor.png", className="pedalbox-logo"),
+                                    className="box1"
+                                ),
+                                html.Div(
+                                    children="Torque Vectoring",
+                                    className="box2"
+                                ),
+                                html.Div(
+                                    children=html.Div(
+                                    children=[daq.LEDDisplay(
+                                            id='power',
+                                            label={'label':"POWER", 'style':{'font-weight': 'bold','font-size':'16px'}},
+                                            labelPosition='top',
+                                            value='0',
+                                            color="black"
+
+                                        ),
+                                    html.Div(
+                                    children=daq.LEDDisplay(
+                                            id='TV_Value',
+                                            label={'label':"Torque Vectoring", 'style':{'font-weight': 'bold','font-size':'16px'}},
+                                            labelPosition='top',
+                                            value='0',
+                                            color="black"
+                                        ),
+                                    className="box9"
+                                ),
+                                html.Div(
+                                    children=daq.Indicator(
+                                              id='tvValue',
+                                              label={'label':"TV Running", 'style':{'font-weight': 'bold','font-size':'20px'}},
+                                              color="green",
+                                              size=45,
+                                              value=True
+                                            ),
+                                    className="box6"
+                                ),],
+                                    className="box10"
+                                ),
+
+                                )
+
+
+
+                            ],
+                            className="cornerWrapper"
+                        )
+                    ],
+                    className="box"
                 )
             ],
             className="container2"
@@ -625,16 +725,16 @@ layout = html.Div(id='element-to-hide', style={'display':'none'}),\
 
 
 @callback(
-    [Output("grafico-1", "figure"), Output('totalVoltage', 'value'), Output('cellMinVoltage', 'value'), Output('idCellMinVoltage', 'value'), Output('totalVoltage', 'color'), Output('cellMinVoltage', 'color'), Output('k1', 'color'), Output('k2', 'color'), Output('k3', 'color'), Output("safetyFront", "children"), Output("safetyLine", "children"), Output("carStatus", "children"), Output('sw1', 'children'), Output('sw2', 'children'), Output('sw3', 'children'), Output('sw4', 'children'), Output('SpeedFL','value'), Output('SpeedFR','value'), Output('SpeedRL','value'), Output('SpeedRR','value'), Output('LS FL', 'children'), Output('LS FR', 'children'), Output('LS RL', 'children'), Output('LS RR', 'children'), Output('IMD', 'color'), Output('AMS', 'color'), Output('Plausibility', 'color'), Output('tempFL','value'), Output('tempFR','value'), Output('tempRL','value'), Output('tempRR','value'), Output('powerFL','value'), Output('powerFR','value'), Output('powerRL','value'), Output('powerRR','value'), Output('tqComFL','value'), Output('tqComFR','value'), Output('tqComRL','value'), Output('tqComRR','value'), Output('Speed', 'value'), Output('smAMS', 'children'), Output('errorAMS', 'children')],
+    [Output("grafico-1", "figure"), Output('totalVoltage', 'value'), Output('cellMinVoltage', 'value'), Output('idCellMinVoltage', 'value'), Output('totalVoltage', 'color'), Output('cellMinVoltage', 'color'), Output('cellMaxVoltage', 'value'), Output('idCellMaxVoltage', 'value'), Output('k1', 'color'), Output('k2', 'color'), Output('k3', 'color'), Output("safetyFront", "children"), Output("safetyLine", "children"), Output("carStatus", "children"), Output('sw1', 'children'), Output('sw2', 'children'), Output('sw3', 'children'), Output('sw4', 'children'), Output('SpeedFL','value'), Output('SpeedFR','value'), Output('SpeedRL','value'), Output('SpeedRR','value'), Output('LS FL', 'children'), Output('LS FR', 'children'), Output('LS RL', 'children'), Output('LS RR', 'children'), Output('IMD', 'color'), Output('AMS', 'color'), Output('Plausibility', 'color'), Output('tempFL','value'), Output('tempFR','value'), Output('tempRL','value'), Output('tempRR','value'), Output('powerFL','value'), Output('powerFR','value'), Output('powerRL','value'), Output('powerRR','value'), Output('tqComFL','value'), Output('tqComFR','value'), Output('tqComRL','value'), Output('tqComRR','value'), Output('Speed', 'value'), Output('smAMS', 'children'), Output('errorAMS', 'children'), Output("current-Graph", "figure"), Output("YawRate-Graph", "figure"),  Output('volante','value'), Output('power','value'),Output('TV_Value','value'), Output('tvValue', 'color')],
     Input('int-component', 'n_intervals'),
 )
 def acutaliza(N):
     #begining = time.time()
-    data = dict(get_data())
-    print(data)
+    data = get_data()
+    #print(data)
     #figura2 = interfaceUpdater.updateFigure2(data.get('0310'))
 
-    totalVoltage, minVoltage, idMinVoltage, voltageColor = interfaceUpdater.updateVoltages(data.get('0311'))
+    totalVoltage, minVoltage, idMinVoltage, voltageColor, maxVoltage, idMaxVoltage = interfaceUpdater.updateVoltages(data.get('0311'))
     k1, k2, k3, smAMS, errorAMS = interfaceUpdater.contactorFeedbackAndAMSState(data.get('0310'))
 
     figura1 = interfaceUpdater.updateFigure1(get_0001())
@@ -648,7 +748,11 @@ def acutaliza(N):
     tqComFL, tqComFR, tqComRL, tqComRR = interfaceUpdater.torqueCommands(data.get('020e'), data.get('040e'), data.get('020f'), data.get('040f'))
     speed, yawRateRef = interfaceUpdater.speedAndYawRateRef(data.get('00f2'))
     currentFigure = interfaceUpdater.currents(get_currentFL(), get_currentFR(), get_currentRL(), get_currentRR())
+    yawRateFigure = interfaceUpdater.updateYawRate(get_YawRate(), get_YawRateRef())
+    steering = interfaceUpdater.updateSteeringWheel(data.get('0181'))
+    power, torqueValue = interfaceUpdater.dashData(data.get('00a2'))
+    tvRunning = interfaceUpdater.tvRunning(data.get('00f0'))
     #end = time.time()
     #print(end-begining)
-    return figura1, totalVoltage, minVoltage, idMinVoltage, voltageColor, voltageColor, k1, k2, k3, safetyFront, safetyValue, carState, sw1, sw2, sw3, sw4, speedFL, speedFR, speedRL, speedRR, ls1, ls2, ls3, ls4, imd, ams, plausibility, tempFL, tempFR, tempRL, tempRR, powerFL, powerFR, powerRL, powerRR, tqComFL, tqComFR, tqComRL, tqComRR, speed, smAMS, errorAMS
+    return figura1, totalVoltage, minVoltage, idMinVoltage, voltageColor, voltageColor, maxVoltage, idMaxVoltage, k1, k2, k3, safetyFront, safetyValue, carState, sw1, sw2, sw3, sw4, speedFL, speedFR, speedRL, speedRR, ls1, ls2, ls3, ls4, imd, ams, plausibility, tempFL, tempFR, tempRL, tempRR, powerFL, powerFR, powerRL, powerRR, tqComFL, tqComFR, tqComRL, tqComRR, speed, smAMS, errorAMS, currentFigure, yawRateFigure, steering, power, torqueValue, tvRunning
 
