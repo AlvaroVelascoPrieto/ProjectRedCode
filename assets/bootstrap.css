@@ -10348,3 +10348,27 @@ div.margin {
 div.inline{
     display: inline-block;
 }
+
+.contenedorMotores {
+  float:left;
+}
+
+.motor1{
+    width: 22%;
+    float:left;
+}
+
+.motor2{
+    width: 22%;
+    float:left;
+}
+
+.motor3{
+    width: 22%;
+    float:left;
+}
+
+.motor4{
+    width: 22%;
+    float:left;
+}

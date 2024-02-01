@@ -1,12 +1,47 @@
 import dash_daq as daq
 import dash
-from dash import html, callback, Output, Input, dcc
+from dash import html, callback, Output, Input, dcc, State
 import interfaceUpdater
+import dash_bootstrap_components as dbc
 from JSONReader import get_data, get_0310, get_0001, get_currentFL, get_currentFR, get_currentRL, \
     get_currentRR, get_YawRate, get_YawRateRef
 
 pilaId0310=[0,0,0,0,0,0,0,0,0,0]
 dash.register_page(__name__)
+latchedStatus = {
+    "0" : "Event buffer has a new event entry since last upload",
+    "1" : "Event buffer is full and has missed at least one event",
+    "2" : "Power module over current detected by hardware",
+    "3" : "Power module current offset calibration failed",
+    "4" : "Power module temperature sensor defective",
+    "5" : "Power module temperature has reached warning level",
+    "6" : "Power module temperature has reached error level",
+    "7" : "Power module i*t error",
+    "8" : "Power module over current detected by software",
+    "9" : "Power module pattern data inconsistency",
+    "10" : "Dc link over voltage detected by hardware",
+    "11" : "Dc link over voltage detected by software",
+    "12" : "Dc link undervoltage detectedy by software",
+    "13" : "Fault of the other inverter on the same device",
+    "14" : "Motor temperature sensor defective",
+    "15" : "Motor temperature has reached warning level",
+    "16" : "Motor temperature has reached error level",
+    "17" : "Motor stator frequency to high",
+    "18" : "Board supply voltage error",
+    "19" : "Receive PDO timeout",
+    "20" : "NMT not in state operational",
+    "21" : "Task calculation time overrun",
+    "22" : "Net synchronisation error",
+    "23" : "Position device signal to low",
+    "24" : "Position device signal to high",
+    "25" : "Resolver calibration failed",
+    "26" : "System error, analog input or motor feedback DMA error",
+    "27" : "Interlock open due to open cover sheet",
+    "28" : "Gate driver disabled by APPC",
+    "29" : "Motor stall error",
+    "30" : "Ambient temperature has reached warning level",
+    "31" : "Ambient temperature has reached error level"
+}
 
 layout = html.Div(id='element-to-hide', style={'display':'none'}),\
          html.Div(
@@ -285,8 +320,7 @@ layout = html.Div(id='element-to-hide', style={'display':'none'}),\
                                     children=html.Img(src="../assets/Motor.png", className="pedalbox-logo"),
                                     className="box1"
                                 ),
-                                html.Div(
-                                    children="Drivetrain",
+                                html.Div("Drivetrain",
                                     className="box2"
                                 ),
                                 html.Div(
@@ -513,7 +547,60 @@ layout = html.Div(id='element-to-hide', style={'display':'none'}),\
                                     className="box1"
                                 ),
                                 html.Div(
-                                    children="Drivetrain",
+                                    children=["Drivetrain",dbc.Button("Status Words", id="open", n_clicks=0, color="danger", style={'width': '30%', 'height':'100%', 'margin':{'l':'250px','r':'0','b':'0','t':'0'}}),
+                                            dbc.Modal(
+                                                [
+                                                    dbc.ModalHeader(dbc.ModalTitle("Status Words")),
+                                                    dbc.ModalBody( children=html.Div(children=[
+                                                            html.Div(children=[daq.Indicator(
+                                                                        id="motor1",
+                                                                        label=status,
+                                                                        labelPosition="right",
+                                                                        color="grey",
+                                                                        value=False,
+                                                                        style={'float' : 'left'}
+                                                                        )for status in latchedStatus
+                                                            ], className="motor1"),
+                                                            html.Div(children=[daq.Indicator(
+                                                                        id="motor2",
+                                                                        label=status,
+                                                                        labelPosition="right",
+                                                                        color="grey",
+                                                                        value=False,
+                                                                        style={'float' : 'left'}
+                                                                        )for status in latchedStatus
+                                                            ], className="motor2"),
+                                                            html.Div(children=[daq.Indicator(
+                                                                        id="motor3",
+                                                                        label=status,
+                                                                        labelPosition="right",
+                                                                        color="grey",
+                                                                        value=False,
+                                                                        style={'float' : 'left'}
+                                                                        )for status in latchedStatus
+                                                            ], className="motor3"),
+                                                            html.Div(children=[daq.Indicator(
+                                                                        id="motor4",
+                                                                        label=status,
+                                                                        labelPosition="right",
+                                                                        color="grey",
+                                                                        value=False,
+                                                                        style={'float' : 'left'}
+                                                                        )for status in latchedStatus
+                                                            ], className="motor4")],className="contenedorMotores"),
+                                                    className="contenedorMotores",
+                                                    id='motorContent'),
+                                                    dbc.ModalFooter(
+                                                        dbc.Button(
+                                                            "Cerrar", id="close", className="ms-auto", n_clicks=0, color="danger"
+                                                        )
+                                                    ),
+                                                ],
+                                                id="modal",
+                                                size="xl",
+                                                is_open=False,
+                                                fullscreen=True
+                                            ),],
                                     className="box2"
                                 ),
                                 html.Div(
@@ -756,3 +843,14 @@ def acutaliza(N):
     #print(end-begining)
     return figura1, totalVoltage, minVoltage, idMinVoltage, voltageColor, voltageColor, maxVoltage, idMaxVoltage, k1, k2, k3, safetyFront, safetyValue, carState, sw1, sw2, sw3, sw4, speedFL, speedFR, speedRL, speedRR, ls1, ls2, ls3, ls4, imd, ams, plausibility, tempFL, tempFR, tempRL, tempRR, powerFL, powerFR, powerRL, powerRR, tqComFL, tqComFR, tqComRL, tqComRR, speed, smAMS, errorAMS, currentFigure, yawRateFigure, steering, power, torqueValue, tvRunning
 
+@callback(
+    [Output("modal", "is_open"), Output("motorContent", "children")],
+    [Input("open", "n_clicks"), Input("close", "n_clicks")],
+    [State("modal", "is_open")],
+)
+def toggle_modal(n1, n2, is_open):
+    data = get_data()
+    contenido = interfaceUpdater.updateStatuswordTranslation(data.get('01cf'), data.get('02cf'), data.get('01ce'), data.get('02ce'))
+    if n1 or n2:
+        return not is_open, contenido
+    return is_open, contenido
