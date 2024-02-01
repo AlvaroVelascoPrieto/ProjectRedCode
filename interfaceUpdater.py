@@ -1,4 +1,43 @@
+import dash.html as html
+import dash_daq as daq
 import plotly.graph_objects as go
+
+statuses = [
+    "Event buffer has a new event entry since last upload",
+    "Event buffer is full and has missed at least one event",
+    "Power module over current detected by hardware",
+    "Power module current offset calibration failed",
+    "Power module temperature sensor defective",
+    "Power module temperature has reached warning level",
+    "Power module temperature has reached error level",
+    "Power module i*t error",
+    "Power module over current detected by software",
+    "Power module pattern data inconsistency",
+    "Dc link over voltage detected by hardware",
+    "Dc link over voltage detected by software",
+    "Dc link undervoltage detectedy by software",
+    "Fault of the other inverter on the same device",
+    "Motor temperature sensor defective",
+    "Motor temperature has reached warning level",
+    "Motor temperature has reached error level",
+    "Motor stator frequency to high",
+    "Board supply voltage error",
+    "Receive PDO timeout",
+    "NMT not in state operational",
+    "Task calculation time overrun",
+    "Net synchronisation error",
+    "Position device signal to low",
+    "Position device signal to high",
+    "Resolver calibration failed",
+    "System error, analog input or motor feedback DMA error",
+    "Interlock open due to open cover sheet",
+    "Gate driver disabled by APPC",
+    "Motor stall error",
+    "Ambient temperature has reached warning level",
+    "Ambient temperature has reached error level"
+]
+
+
 STATES = {'00' : 'Safe 1',
     '01' : 'Safe 2 Front',
     '02' : 'Safe 2 BOTS',
@@ -296,3 +335,51 @@ def dashData(data):
 def tvRunning(data):
     tvRunning = 'green' if bin(int(data[14:16][0:2], base=16))[-1] == '1' else 'grey'
     return tvRunning
+
+
+def updateStatuswordTranslation(data1,data2,data3,data4):
+    ls1 = bin(int(data1[10:12] + data1[8:10] + data1[6:8] + data1[4:6], base=16)).removeprefix("b").zfill(32)
+    ls2 = bin(int(data2[10:12] + data2[8:10] + data2[6:8] + data2[4:6], base=16)).split()[0].zfill(32)
+    ls3 = bin(int(data3[10:12] + data3[8:10] + data3[6:8] + data3[4:6], base=16)).split()[0].zfill(32)
+    ls4 = bin(int(data4[10:12] + data4[8:10] + data4[6:8] + data4[4:6], base=16)).split()[0].zfill(32)
+    print("REVISAME")
+    #print(len(ls1))
+    children =html.Div(children=[
+                html.Div(children=[daq.Indicator(
+                            id="motor1",
+                            label=statuses[i],
+                            labelPosition="right",
+                            color="grey" if ls1[-1-i]=='0' else 'green',
+                            value=False,
+                            style={'float' : 'left'}
+                            )for i in range(len(statuses))
+                ], className="motor1"),
+                html.Div(children=[daq.Indicator(
+                            id="motor2",
+                            label=statuses[i],
+                            labelPosition="right",
+                            color="grey" if ls2[-1-i]=='0' else 'green',
+                            value=False,
+                            style={'float' : 'left'}
+                            )for i in range(len(statuses))
+                ], className="motor2"),
+                html.Div(children=[daq.Indicator(
+                            id="motor3",
+                            label=statuses[i],
+                            labelPosition="right",
+                            color="grey" if ls3[-1-i]=='0' else 'green',
+                            value=False,
+                            style={'float' : 'left'}
+                            )for i in range(len(statuses))
+                ], className="motor3"),
+                html.Div(children=[daq.Indicator(
+                            id="motor4",
+                            label=statuses[i],
+                            labelPosition="right",
+                            color="grey" if ls4[-1-i]=='0' else 'green',
+                            value=False,
+                            style={'float' : 'left'}
+                            )for i in range(len(statuses))
+                ])])
+
+    return children
