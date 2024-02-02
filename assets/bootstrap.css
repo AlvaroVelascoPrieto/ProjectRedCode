@@ -10303,9 +10303,10 @@ div.margin {
 }
 
 .pedalbox-logo{
-    margin-top:-20px;
+    margin-top:-10px;
+    margin-bottom: 100px;
     margin-left:40px;
-    max-width:96px;
+    max-width:110px;
     margin-left:0px;
 }
 

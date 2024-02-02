@@ -6,7 +6,6 @@ app = dash.Dash(external_stylesheets=[dbc.themes.BOOTSTRAP], use_pages=True)
 from pages.logReader import dataDict
 app.layout = dash.html.Div([
     dbc.Navbar([
-
                 dash.html.A(
                     # Use row and col to control vertical alignment of logo / brand
                     dbc.Row(
@@ -21,8 +20,13 @@ app.layout = dash.html.Div([
                     style={"textDecoration": "none"},
                 ),
                 dbc.NavbarToggler(id="navbar-toggler", n_clicks=0),
-                dbc.NavItem(dbc.NavLink(dbc.NavItem(dbc.NavLink("TEAM PAGE", href="https://fsbizkaia.com")))),
-                dbc.NavItem(dbc.NavLink(dbc.NavItem(dbc.NavLink("SharePoint", href="https://fsbizkaia.sharepoint.com/_layouts/15/sharepoint.aspx"))))
+                dbc.NavItem(dbc.NavLink(dbc.NavItem(dbc.NavLink("TEAM PAGE", href="https://fsbizkaia.com"))),style={'color':'#ffffff'}),
+                dbc.NavItem(dbc.NavLink(dbc.NavItem(dbc.NavLink("SharePoint", href="https://fsbizkaia.sharepoint.com/_layouts/15/sharepoint.aspx"))),style={'color':'#12c3de'}),
+                dbc.NavItem(dbc.NavLink(dbc.NavItem(dbc.NavLink("ELECTRONICS", href=dash.page_registry['pages.electronics']['path']))), style={'color':'red'}),
+                dbc.NavItem(dbc.NavLink(dbc.NavItem(dbc.NavLink("POWERTRAIN", href=dash.page_registry['pages.electronics']['path']))), style={'color':'red'}),
+                dbc.NavItem(dbc.NavLink(dbc.NavItem(dbc.NavLink("CHECKS", href=dash.page_registry['pages.electronics']['path']))), style={'color':'red'}),
+                dbc.NavItem(dbc.NavLink(dbc.NavItem(dbc.NavLink("SIMULATION", href=dash.page_registry['pages.electronics']['path']))), style={'color':'red'}),
+                dbc.NavItem(dbc.NavLink(dbc.NavItem(dbc.NavLink("COOLING", href=dash.page_registry['pages.electronics']['path']))), style={'color':'red'})
             ],
         color="dark",
         dark=True,

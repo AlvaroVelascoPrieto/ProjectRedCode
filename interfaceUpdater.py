@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 import dash.html as html
 import dash_daq as daq
 import plotly.graph_objects as go
@@ -383,7 +382,7 @@ def updateStatuswordTranslation(data1,data2,data3,data4):
                             )for i in range(len(statuses))
                 ])])
 
-=======
+
 import dash.html as html
 import dash_daq as daq
 import plotly.graph_objects as go
@@ -768,5 +767,5 @@ def updateStatuswordTranslation(data1,data2,data3,data4):
                             )for i in range(len(statuses))
                 ])])
 
->>>>>>> 17b1810be65e2c353afb1d112575b85b5c4866ed
+
     return children
