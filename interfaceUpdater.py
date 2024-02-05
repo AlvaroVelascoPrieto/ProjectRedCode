@@ -112,7 +112,46 @@ def updateFigure1(data):
     figure_1['layout']['yaxis'] = {'range': (0, 250)}
     return figure_1
 
+def updatePedaleraMulti(data):
+    datosAcc1 = [int(i[10:12],base=16) for i in data]
+    datosAcc2 = [int(i[12:14],base=16) for i in data]
+    datosAcc3 = [int(i[14:16],base=16) for i in data]
+    datosBrk = [int(i[6:8],base=16) for i in data]
+    datosX = [i for i in range(len(datosAcc1))]
+    figure_1 = go.Figure(
 
+        data = [go.Scatter(
+            x = datosX,
+            y = datosAcc1,
+            mode = 'lines',
+            name='Acc1',
+            marker = dict(color = 'green')
+        ),
+            go.Scatter(
+                x=datosX,
+                y=datosBrk,
+                mode='lines',
+                name='Brk',
+                marker=dict(color='red')
+            ),
+            go.Scatter(
+                x=datosX,
+                y=datosAcc2,
+                mode='lines',
+                name='Acc2',
+                marker=dict(color='blue')
+            ),
+            go.Scatter(
+                x=datosX,
+                y=datosAcc3,
+                mode='lines',
+                name='Acc3',
+                marker=dict(color='purple')
+            ),
+        ]
+    )
+    figure_1['layout']['yaxis'] = {'range': (0, 250)}
+    return figure_1
 
 
 

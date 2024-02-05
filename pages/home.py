@@ -12,9 +12,9 @@ def layout():
                 html.Div(
                 children=[
                     html.Img(src="../assets/fsb_round_logo.png", className="header-logo"),
-                    html.H1(children="Dynacar Log Reader", className="header-title"),
+                    html.H1(children="FSB2024 TELEMETRY", className="header-title"),
                     html.P(
-                        children="Analyze Tecnalia's Dynacar log outputs for Formula Student Bizkaia's Torque Vectoring division.",
+                        children="Telemetry reception interface for Formula Student Bizkaia's FSB2024. Designed by Alvaro Velasco Prieto",
                         className="header-description",
                     ),
                 ],

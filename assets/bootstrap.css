@@ -10200,6 +10200,20 @@ div.margin {
   grid-row-gap: 10px;
  }
 
+ .container3{
+  margin: auto auto;
+  width:100%;
+  height:auto;
+  display:grid;
+  grid-template-columns: 49% 49%;
+  padding-left:5px;
+  padding-top:20px;
+  padding-bottom:20px;
+  grid-row: auto auto;
+  grid-column-gap: 10px;
+  grid-row-gap: 10px;
+ } 
+
 .box{
    background-color:#fff;
    padding:20px;

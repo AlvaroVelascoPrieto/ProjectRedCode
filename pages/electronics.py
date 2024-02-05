@@ -234,18 +234,147 @@ layout=html.Div(id='element-to-hide', style={'display':'none'}),\
                 ],
                 className="box"
             ),
+            html.Div(
+                children=[
+                    html.Div(
+                        children=[
+                            html.Div(
+                                children=html.Img(src="../assets/dash.jpeg", className="pedalbox-logo"),
+                                className="box1"
+                            ),
+                            html.Div(
+                                children="Dash",
+                                className="box2"
+                            ),
+                            html.Div(
+                                children=[html.H5('State Machine',
+                                        style={'font-weight': 'bold','font-size':'16px'}
+                                        ),
+                                        html.H5(
+                                        id='smAMS',
+                                        style={'font-size':'26px'}
+                                        ),
+                                        html.Br(),
+                                        html.Br(),
+                                        html.H5('Previous State',
+                                        style={'font-weight': 'bold','font-size':'16px'}
+                                        ),
+                                        html.H5(
+                                        id='errorAMS',
+                                        style={'font-size':'26px'}
+                                        ),
+                                ],
+                                className="box4"
+                            ),
+                            html.Div(
+                                children=daq.Indicator(
+                                            id='Frontok',
+                                            label={'label':"FRONT OK", 'style':{'font-weight': 'bold','font-size':'20px'}},
+                                            color="green",
+                                            size=45,
+                                            value=True
+                                        ),
+                                className="box5"
+                            ),
+                            
+                            html.Div(
+                                children=[html.H5('Safety',
+                                        style={'font-weight': 'bold','font-size':'16px'}
+                                        ),
+                                        html.H5(
+                                        id='safetyLine',
+                                        style={'font-size':'26px'}
+                                        ),
+                                    ],
+                                className="box8"
+                            ),
+                            html.Div(
+                                children=[html.H5('Safety front',
+                                        style={'font-weight': 'bold','font-size':'16px'}
+                                        ),
+                                        html.H5(
+                                        id='safetyFront',
+                                        style={'font-size':'26px'}
+                                    ),
+                                ],
+                                className="box9"
+                            ),
+                            html.Div(
+                                children=[html.H5('Button',
+                                        style={'font-weight': 'bold','font-size':'16px'}
+                                        ),
+                                        html.H5(
+                                        id='carStatus',
+                                        style={'font-size':'26px'}
+                                    ),
+                                ],
+                                className="box10"
+                            ),
+                            html.Div(
+                                children=daq.LEDDisplay(
+                                        id='vel',
+                                        label={'label':"Speed", 'style':{'font-weight': 'bold','font-size':'16px'}},
+                                        labelPosition='top',
+                                        value='0',
+                                        color="black"
+                                    ),
+                                className="box11"
+                            ),
+                        ],
+                        className="cornerWrapper"
+                    )
+                ],
+                className="box"
+            ),
+            html.Div(
+                    children=[
+                        html.Div(
+                            children=[
+                                html.Div(
+                                    children=html.Img(src="../assets/PedalBox.jpg", className="pedalbox-logo"),
+                                    className="box1"
+                                ),
+                                html.Div(
+                                    children="Pedalera",
+                                    className="box2"
+                                ),
+                                html.Div(
+                                    children=[dcc.Graph(
+                                        id="pedalera",
+                                        figure={'layout':{"autosize":False}},
+                                        style={'width': '100%', 'height':'100%', 'margin':{'l':'0','r':'0','b':'0','t':'0'}},
+                                        config={"responsive":True,"displayModeBar": False, "edits":{"titleText":False,"legendText":False, "annotationPosition":False,"colorbarTitleText":False},"displayModeBar":True},
+
+                                    ),
+                                    dcc.Slider( -28, 28, 0.5, value=0,  included=False, id="volante",
+                                                    tooltip={"placement": "bottom", "always_visible": True},
+                                                    marks={
+                                                            0: {'label': '0°', 'style': {'color': '#f50', 'size':'18px'}},
+
+                                                        },
+                                               ),
+                                    ],
+                                    className="box3"
+                                )
+                            ],
+                            className="cornerWrapper"
+                        ),
+                    ],
+                    className="box"
+                ),
         ],
-    className='container2'
+    className='container3'
     )
 
 @callback(
-    Output("vel", "value"),
+    [Output("vel", "value"),Output("pedalera", "figure")],
     Input('int-component-el', 'n_intervals'),
 )
 def acutaliza(N):
     #begining = time.time()
     data = get_data()
     vel = random.randint(0,10)
+    pedalera = interfaceUpdater.updatePedaleraMulti(get_0001())
     #end = time.time()
     #print(end-begining)
-    return vel
+    return vel, pedalera
