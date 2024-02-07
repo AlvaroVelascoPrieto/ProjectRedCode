@@ -154,7 +154,7 @@ layout=html.Div(id='element-to-hide', style={'display':'none'}),\
                                             height=285,
                                             style={'margin-left': '50px'},
                                         ),
-                                className="box4"
+                                className="box4-1"
                             ),
                             html.Div(
                                 children=daq.Indicator(
@@ -195,7 +195,7 @@ layout=html.Div(id='element-to-hide', style={'display':'none'}),\
                                         color="black"
 
                                     ),
-                                className="box8"
+                                className="box8-1"
                             ),
                             html.Div(
                                 children=daq.LEDDisplay(
@@ -205,7 +205,7 @@ layout=html.Div(id='element-to-hide', style={'display':'none'}),\
                                         value='0',
                                         color="black"
                                     ),
-                                className="box9"
+                                className="box9-1"
                             ),
                             html.Div(
                                 children=daq.LEDDisplay(
@@ -216,7 +216,7 @@ layout=html.Div(id='element-to-hide', style={'display':'none'}),\
                                         color="black"
 
                                     ),
-                                className="box10"
+                                className="box10-1"
                             ),
                             html.Div(
                                 children=daq.LEDDisplay(
@@ -226,10 +226,10 @@ layout=html.Div(id='element-to-hide', style={'display':'none'}),\
                                         value='0',
                                         color="black"
                                     ),
-                                className="box11"
+                                className="box11-1"
                             ),
                         ],
-                        className="cornerWrapper"
+                        className="cornerWrapperMulti"
                     )
                 ],
                 className="box"
