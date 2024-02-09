@@ -148,7 +148,7 @@ layout=html.Div(id='element-to-hide', style={'display':'none'}),\
                                         style={'font-weight': 'bold','font-size':'16px'}
                                         ),
                                         html.H5('Waiting for data',
-                                        id='smAMS',
+                                        id='smAMS2',
                                         style={'font-size':'26px'}
                                         ),
                                 ],className="grid1-22"
@@ -158,7 +158,7 @@ layout=html.Div(id='element-to-hide', style={'display':'none'}),\
                                         style={'font-weight': 'bold','font-size':'16px'}
                                         ),
                                         html.H5('Waiting for data',
-                                        id='errorAMS',
+                                        id='errorAMS2',
                                         style={'font-size':'26px'}
                                         ),
                                 ],
@@ -169,37 +169,36 @@ layout=html.Div(id='element-to-hide', style={'display':'none'}),\
                                         style={'font-weight': 'bold','font-size':'16px'}
                                         ),
                                         html.H5('Waiting for data',
-                                        id='errorAMS',
+                                        id='modeAMS2',
                                         style={'font-size':'26px'}
                                         ),
                                 ],
                                 className="grid1-44"
                             ), 
                             html.Div(
-                                    children=[html.H5('Timed Out Slave',
-                                            style={'font-weight': 'bold','font-size':'16px'}
-                                            ),
-                                            html.H5('Waiting for data',
-                                            id='errorAMS',
-                                            style={'font-size':'26px'}
-                                            ),
+                                children=[html.H5('Timed Out Slave',
+                                        style={'font-weight': 'bold','font-size':'16px'}
+                                        ),
+                                        html.H5('Waiting for data',
+                                        id='timedOutSlave2',
+                                        style={'font-size':'26px'}
+                                        ),
                                 ],
                                 className="grid1-55"
                             ), 
                             html.Div(
                                 children=daq.LEDDisplay(
-                                        id='cellMinVoltage',
+                                        id='cellMinVoltage2',
                                         label={'label':"Cell min voltage", 'style':{'font-weight': 'bold','font-size':'16px'}},
                                         labelPosition='top',
                                         value='3.64',
                                         color="black"
-
                                     ),
                                 className="grid2-22"
                             ),
                             html.Div(
                                 children=daq.LEDDisplay(
-                                        id='cellMaxVoltage',
+                                        id='cellMaxVoltage2',
                                         label={'label':"Cell max voltage", 'style':{'font-weight': 'bold','font-size':'16px'}},
                                         labelPosition='top',
                                         value='0',
@@ -210,7 +209,7 @@ layout=html.Div(id='element-to-hide', style={'display':'none'}),\
                                 ),
                                 html.Div(
                                 children=daq.Indicator(
-                                            id='k1',
+                                            id='k12',
                                             label={'label':"K1", 'style':{'font-weight': 'bold','font-size':'20px'}},
                                             color="green",
                                             size=45,
@@ -220,7 +219,7 @@ layout=html.Div(id='element-to-hide', style={'display':'none'}),\
                                 ), 
                                 html.Div(
                                     children=daq.LEDDisplay(
-                                            id='idCellMinVoltage',
+                                            id='idCellMinVoltage2',
                                             label={'label':"ID cell min voltage", 'style':{'font-weight': 'bold','font-size':'16px'}},
                                             labelPosition='top',
                                             value='0',
@@ -230,7 +229,7 @@ layout=html.Div(id='element-to-hide', style={'display':'none'}),\
                                 ),
                                 html.Div(
                                     children=daq.LEDDisplay(
-                                            id='idCellMaxVoltage',
+                                            id='idCellMaxVoltage2',
                                             label={'label':"ID cell max voltage", 'style':{'font-weight': 'bold','font-size':'16px'}},
                                             labelPosition='top',
                                             value='0',
@@ -240,7 +239,7 @@ layout=html.Div(id='element-to-hide', style={'display':'none'}),\
                                 ),
                                 html.Div(
                                     children=daq.Indicator(
-                                                id='k2',
+                                                id='k22',
                                                 label={'label':"K2+", 'style':{'font-weight': 'bold','font-size':'20px'}},
                                                 color="green",
                                                 size=45,
@@ -250,7 +249,7 @@ layout=html.Div(id='element-to-hide', style={'display':'none'}),\
                                 ),
                                 html.Div(
                                     children=daq.LEDDisplay(
-                                            id='idCellMinVoltage',
+                                            id='idCellMinVoltage2',
                                             label={'label':"ID cell min voltage", 'style':{'font-weight': 'bold','font-size':'16px'}},
                                             labelPosition='top',
                                             value='0',
@@ -260,7 +259,7 @@ layout=html.Div(id='element-to-hide', style={'display':'none'}),\
                                 ),
                                 html.Div(
                                     children=daq.LEDDisplay(
-                                            id='idCellMaxVoltage',
+                                            id='idCellMaxVoltage2',
                                             label={'label':"ID cell max voltage", 'style':{'font-weight': 'bold','font-size':'16px'}},
                                             labelPosition='top',
                                             value='0',
@@ -270,7 +269,7 @@ layout=html.Div(id='element-to-hide', style={'display':'none'}),\
                                 ),
                                 html.Div(
                                     children=daq.LEDDisplay(
-                                            id='cellMinTemp',
+                                            id='cellMinTemp2',
                                             label={'label':"Cell Min Temp", 'style':{'font-weight': 'bold','font-size':'16px'}},
                                             labelPosition='top',
                                             value='0',
@@ -280,7 +279,7 @@ layout=html.Div(id='element-to-hide', style={'display':'none'}),\
                                 ),
                                 html.Div(
                                     children=daq.LEDDisplay(
-                                            id='cellMaxTemp',
+                                            id='cellMaxTemp2',
                                             label={'label':"Cell Max Temp", 'style':{'font-weight': 'bold','font-size':'16px'}},
                                             labelPosition='top',
                                             value='0',
@@ -290,7 +289,7 @@ layout=html.Div(id='element-to-hide', style={'display':'none'}),\
                                 ),
                                 html.Div(
                                     children=daq.Indicator(
-                                                id='k3',
+                                                id='k32',
                                                 label={'label':"K3-", 'style':{'font-weight': 'bold','font-size':'20px'}},
                                                 color="green",
                                                 size=45,
@@ -300,7 +299,7 @@ layout=html.Div(id='element-to-hide', style={'display':'none'}),\
                                 ), 
                                 html.Div(
                                     children=daq.LEDDisplay(
-                                            id='idCellMinTemp',
+                                            id='idCellMinTemp2',
                                             label={'label':"ID Cell Min Temp", 'style':{'font-weight': 'bold','font-size':'16px'}},
                                             labelPosition='top',
                                             value='0',
@@ -310,7 +309,7 @@ layout=html.Div(id='element-to-hide', style={'display':'none'}),\
                                 ),
                                 html.Div(
                                     children=daq.LEDDisplay(
-                                            id='idCellMaxTemp',
+                                            id='idCellMaxTemp2',
                                             label={'label':"ID Cell Max Temp", 'style':{'font-weight': 'bold','font-size':'16px'}},
                                             labelPosition='top',
                                             value='0',
@@ -320,7 +319,7 @@ layout=html.Div(id='element-to-hide', style={'display':'none'}),\
                                 ),
                                 html.Div(
                                     children=daq.LEDDisplay(
-                                            id='totalVoltage',
+                                            id='totalVoltage2',
                                             label={'label':"Estimated Voltage", 'style':{'font-weight': 'bold','font-size':'16px'}},
                                             labelPosition='top',
                                             value='0',
@@ -330,7 +329,7 @@ layout=html.Div(id='element-to-hide', style={'display':'none'}),\
                                 ),
                                 html.Div(
                                     children=daq.LEDDisplay(
-                                            id='current',
+                                            id='current2',
                                             label={'label':"Output Current", 'style':{'font-weight': 'bold','font-size':'16px'}},
                                             labelPosition='top',
                                             value='0',
@@ -478,7 +477,7 @@ layout=html.Div(id='element-to-hide', style={'display':'none'}),\
     )
 
 @callback(
-    [Output("vel", "value"),Output("pedalera", "figure")],
+    [Output("vel", "value"),Output("pedalera", "figure"), Output('smAMS2', 'children'), Output('errorAMS2', 'children'), Output('modeAMS2', 'children'), Output('timedOutSlave2', 'children'), Output('cellMinVoltage2', 'value'), Output('cellMaxVoltage2', 'value'), Output('idCellMaxVoltage2', 'value'), Output('idCellMinVoltage2', 'value'), Output('cellMinTemp2', 'value'), Output('cellMaxTemp2', 'value'), Output('idCellMinTemp2', 'value'), Output('idCellMaxTemp2', 'value'), Output('totalVoltage2', 'value'), Output('current2', 'value'),],
     Input('int-component-el', 'n_intervals'),
 )
 def acutaliza(N):
@@ -488,4 +487,8 @@ def acutaliza(N):
     pedalera = interfaceUpdater.updatePedaleraMulti(get_0001())
     #end = time.time()
     #print(end-begining)
-    return vel, pedalera
+
+    ###MASTER###
+    totalVoltage, minVoltage, idMinVoltage, voltageColor, maxVoltage, idMaxVoltage, minTemp, idMinTemp, maxTemp, idMaxTemp, colorTemp = interfaceUpdater.updateVoltages(data.get('0311'))
+    k1, k2, k3, smAMS, errorAMS, imd, amsMode, timedOutSlvave, current = interfaceUpdater.contactorFeedbackAndAMSState(data.get('0310'))
+    return vel, pedalera, smAMS, errorAMS, amsMode, timedOutSlvave, minVoltage, maxVoltage, idMaxVoltage, idMinVoltage, minTemp, maxTemp, idMinTemp, idMaxTemp, totalVoltage, current
