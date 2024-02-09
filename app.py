@@ -22,11 +22,13 @@ app.layout = dash.html.Div([
                 dbc.NavbarToggler(id="navbar-toggler", n_clicks=0),
                 dbc.NavItem(dbc.NavLink(dbc.NavItem(dbc.NavLink("TEAM PAGE", href="https://fsbizkaia.com"))),style={'color':'#ffffff'}),
                 dbc.NavItem(dbc.NavLink(dbc.NavItem(dbc.NavLink("SharePoint", href="https://fsbizkaia.sharepoint.com/_layouts/15/sharepoint.aspx"))),style={'color':'#12c3de'}),
+                dbc.NavItem(dbc.NavLink(dbc.NavItem(dbc.NavLink("OVERALL", href=dash.page_registry['pages.telemetry']['path']))), style={'color':'red'}),
                 dbc.NavItem(dbc.NavLink(dbc.NavItem(dbc.NavLink("ELECTRONICS", href=dash.page_registry['pages.electronics']['path']))), style={'color':'red'}),
                 dbc.NavItem(dbc.NavLink(dbc.NavItem(dbc.NavLink("POWERTRAIN", href=dash.page_registry['pages.electronics']['path']))), style={'color':'red'}),
                 dbc.NavItem(dbc.NavLink(dbc.NavItem(dbc.NavLink("CHECKS", href=dash.page_registry['pages.electronics']['path']))), style={'color':'red'}),
                 dbc.NavItem(dbc.NavLink(dbc.NavItem(dbc.NavLink("SIMULATION", href=dash.page_registry['pages.electronics']['path']))), style={'color':'red'}),
-                dbc.NavItem(dbc.NavLink(dbc.NavItem(dbc.NavLink("COOLING", href=dash.page_registry['pages.electronics']['path']))), style={'color':'red'})
+                dbc.NavItem(dbc.NavLink(dbc.NavItem(dbc.NavLink("COOLING", href=dash.page_registry['pages.electronics']['path']))), style={'color':'red'}),
+                dbc.NavItem(dbc.NavLink(dbc.NavItem(dbc.NavLink("ACCUMULATOR", href=dash.page_registry['pages.electronics']['path']))), style={'color':'red'})
             ],
         color="dark",
         dark=True,

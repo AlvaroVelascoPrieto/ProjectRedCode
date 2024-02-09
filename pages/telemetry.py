@@ -292,7 +292,7 @@ layout = html.Div(id='element-to-hide', style={'display':'none'}),\
                                     children=[dcc.Graph(
                                         id="grafico-1",
                                         figure={'layout':{"autosize":False}},
-                                        style={'width': '100%', 'height':'100%', 'margin':{'l':'0','r':'0','b':'0','t':'0'}},
+                                        style={'width': '100%', 'height':'100%', 'margin':{'l':'0','r':'0','b':'0','t':'0'}, 'margin-top':'-35px'},
                                         config={"responsive":True,"displayModeBar": False, "edits":{"titleText":False,"legendText":False, "annotationPosition":False,"colorbarTitleText":False},"displayModeBar":True},
 
                                     ),
