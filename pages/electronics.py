@@ -26,51 +26,56 @@ layout=html.Div(id='element-to-hide', style={'display':'none'}),\
                         children=[
                             html.Div(
                                 children=html.Img(src="../assets/ecu.png", className="pedalbox-logo"),
-                                className="box1"
+                                className="grid1-1"
                             ),
                             html.Div(
                                 children="ECU",
-                                className="box2"
+                                className="grid25-1",
+                                style={'text-align':'center'}
                             ),
                             html.Div(
-                                children=[html.H5('AMS State Machine',
+                                children=[html.H5('Car State',
                                         style={'font-weight': 'bold','font-size':'16px'}
                                         ),
-                                        html.H5(
-                                        id='smAMS',
+                                        html.H5('Waiting for data',
+                                        id='carState2',
                                         style={'font-size':'26px'}
                                         ),
-                                        html.Br(),
-                                        html.H5('AMS Error',
+                                ],className="grid1-22"
+                            ),
+                            html.Div(                                        
+                                children=[html.H5('Error',
                                         style={'font-weight': 'bold','font-size':'16px'}
                                         ),
-                                        html.H5(
-                                        id='errorAMS',
+                                        html.H5('Waiting for data',
+                                        id='error2',
                                         style={'font-size':'26px'}
                                         ),
                                 ],
-                                className="box4"
+                                className="grid1-33"
                             ),
                             html.Div(
-                                children=daq.Indicator(
-                                            id='IMD',
-                                            label={'label':"IMD", 'style':{'font-weight': 'bold','font-size':'20px'}},
-                                            color="red",
-                                            size=45,
-                                            value=True
+                                children=[html.H5('Safety',
+                                        style={'font-weight': 'bold','font-size':'16px'}
                                         ),
-                                className="box5"
+                                        html.H5('Waiting for data',
+                                        id='error2',
+                                        style={'font-size':'26px'}
+                                        ),
+                                ],
+                                className="grid2-22"
                             ),
                             html.Div(
-                                children=daq.Indicator(
-                                            id='AMS',
-                                            label={'label':"AMS", 'style':{'font-weight': 'bold','font-size':'20px'}},
-                                            color="red",
-                                            size=45,
-                                            value=True
+                                children=[html.H5('Safety Front',
+                                        style={'font-weight': 'bold','font-size':'16px'}
                                         ),
-                                className="box6"
-                            ),
+                                        html.H5('Waiting for data',
+                                        id='error2',
+                                        style={'font-size':'26px'}
+                                        ),
+                                ],
+                                className="grid2-33"
+                                ),
                             html.Div(
                                 children=daq.Indicator(
                                             id='Plausibility',
@@ -125,7 +130,7 @@ layout=html.Div(id='element-to-hide', style={'display':'none'}),\
                                 className="box11"
                             ),
                         ],
-                        className="cornerWrapper"
+                        className="cornerWrapperMulti"
                     )
                 ],
                 className="box"
@@ -207,6 +212,16 @@ layout=html.Div(id='element-to-hide', style={'display':'none'}),\
                                     ),
                                 className="grid2-33"
                                 ),
+                            html.Div(
+                                children=daq.Indicator(
+                                            id='imd2',
+                                            label={'label':"IMD", 'style':{'font-weight': 'bold','font-size':'20px'}},
+                                            color="red",
+                                            size=45,
+                                            value=True
+                                        ),
+                                className="grid2-44"
+                            ),
                                 html.Div(
                                 children=daq.Indicator(
                                             id='k12',
@@ -286,6 +301,16 @@ layout=html.Div(id='element-to-hide', style={'display':'none'}),\
                                             color="black"
                                         ),
                                     className="grid4-33"
+                                ),
+                                html.Div(
+                                children=daq.Indicator(
+                                            id='ams2',
+                                            label={'label':"AMS", 'style':{'font-weight': 'bold','font-size':'20px'}},
+                                            color="red",
+                                            size=45,
+                                            value=True
+                                        ),
+                                className="grid4-44"
                                 ),
                                 html.Div(
                                     children=daq.Indicator(
@@ -477,7 +502,7 @@ layout=html.Div(id='element-to-hide', style={'display':'none'}),\
     )
 
 @callback(
-    [Output("vel", "value"),Output("pedalera", "figure"), Output('smAMS2', 'children'), Output('errorAMS2', 'children'), Output('modeAMS2', 'children'), Output('timedOutSlave2', 'children'), Output('cellMinVoltage2', 'value'), Output('cellMaxVoltage2', 'value'), Output('idCellMaxVoltage2', 'value'), Output('idCellMinVoltage2', 'value'), Output('cellMinTemp2', 'value'), Output('cellMaxTemp2', 'value'), Output('idCellMinTemp2', 'value'), Output('idCellMaxTemp2', 'value'), Output('totalVoltage2', 'value'), Output('current2', 'value'),],
+    [Output("vel", "value"),Output("pedalera", "figure"), Output('smAMS2', 'children'), Output('errorAMS2', 'children'), Output('modeAMS2', 'children'), Output('timedOutSlave2', 'children'), Output('cellMinVoltage2', 'value'), Output('cellMaxVoltage2', 'value'), Output('idCellMaxVoltage2', 'value'), Output('idCellMinVoltage2', 'value'), Output('cellMinTemp2', 'value'), Output('cellMaxTemp2', 'value'), Output('idCellMinTemp2', 'value'), Output('idCellMaxTemp2', 'value'), Output('totalVoltage2', 'value'), Output('current2', 'value'), Output('k12', 'color'), Output('k22', 'color'), Output('k32', 'color'), Output('cellMinVoltage2', 'color'), Output('cellMaxTemp2', 'color'), Output('imd2', 'color'), Output('ams2', 'color'), ],
     Input('int-component-el', 'n_intervals'),
 )
 def acutaliza(N):
@@ -490,5 +515,5 @@ def acutaliza(N):
 
     ###MASTER###
     totalVoltage, minVoltage, idMinVoltage, voltageColor, maxVoltage, idMaxVoltage, minTemp, idMinTemp, maxTemp, idMaxTemp, colorTemp = interfaceUpdater.updateVoltages(data.get('0311'))
-    k1, k2, k3, smAMS, errorAMS, imd, amsMode, timedOutSlvave, current = interfaceUpdater.contactorFeedbackAndAMSState(data.get('0310'))
-    return vel, pedalera, smAMS, errorAMS, amsMode, timedOutSlvave, minVoltage, maxVoltage, idMaxVoltage, idMinVoltage, minTemp, maxTemp, idMinTemp, idMaxTemp, totalVoltage, current
+    k1, k2, k3, smAMS, errorAMS, imd, amsMode, timedOutSlvave, current, amsLed = interfaceUpdater.contactorFeedbackAndAMSState(data.get('0310'))
+    return vel, pedalera, smAMS, errorAMS, amsMode, timedOutSlvave, minVoltage, maxVoltage, idMaxVoltage, idMinVoltage, minTemp, maxTemp, idMinTemp, idMaxTemp, totalVoltage, current, k1, k2, k3, voltageColor, colorTemp, imd, amsLed

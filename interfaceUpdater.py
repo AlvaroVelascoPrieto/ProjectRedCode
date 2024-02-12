@@ -598,6 +598,7 @@ def contactorFeedbackAndAMSState(data):
     k3 = 'green' if bin(int(data[2:4][0:2], base=16))[-3] == '1' else 'grey'
     smAMS = str(data[0:2][0:2])
     smAMS = AMSSTATES.get(smAMS)
+    amsLed = 'red' if int(data[4:6][0:2], base=16) != '0' else 'grey'
     errorAMS = str(int(data[4:6][0:2], base=16))
     errorAMS = AMSERRORS.get(errorAMS)
     imd = 'red' if int(data[6:8][0:2], base=16) == '1' else 'grey'
@@ -605,7 +606,7 @@ def contactorFeedbackAndAMSState(data):
     timedOutSlvave = 'Not implemented yet'    #int(data[12:14]+data[10:12],base=16)
     current = round(-200+(1.568*int(data[14:16][0:2], base=16)),1)
 
-    return k1, k2, k3, smAMS, errorAMS, imd, amsMode, timedOutSlvave, current
+    return k1, k2, k3, smAMS, errorAMS, imd, amsMode, timedOutSlvave, current, amsLed
 
 
 def safetyFront(data):

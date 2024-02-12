@@ -822,7 +822,7 @@ def acutaliza(N):
     #figura2 = interfaceUpdater.updateFigure2(data.get('0310'))
 
     totalVoltage, minVoltage, idMinVoltage, voltageColor, maxVoltage, idMaxVoltage, minTemp, idMinTemp, maxTemp, idMaxTemp, colorTemp = interfaceUpdater.updateVoltages(data.get('0311'))
-    k1, k2, k3, smAMS, errorAMS = interfaceUpdater.contactorFeedbackAndAMSState(data.get('0310'))
+    k1, k2, k3, smAMS, errorAMS, imd, amsMode, timedOutSlvave, current, amsLed = interfaceUpdater.contactorFeedbackAndAMSState(data.get('0310'))
 
     figura1 = interfaceUpdater.updateFigure1(get_0001())
 
