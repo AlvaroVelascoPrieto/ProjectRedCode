@@ -25,126 +25,11 @@ layout=html.Div(id='element-to-hide', style={'display':'none'}),\
                     html.Div(
                         children=[
                             html.Div(
-                                children=html.Img(src="../assets/ecu.png", className="pedalbox-logo"),
-                                className="grid1-1"
-                            ),
-                            html.Div(
-                                children="ECU",
-                                className="grid25-1",
-                                style={'text-align':'center'}
-                            ),
-                            html.Div(
-                                children=[html.H5('Car State',
-                                        style={'font-weight': 'bold','font-size':'16px'}
-                                        ),
-                                        html.H5('Waiting for data',
-                                        id='carState2',
-                                        style={'font-size':'26px'}
-                                        ),
-                                ],className="grid1-22"
-                            ),
-                            html.Div(                                        
-                                children=[html.H5('Error',
-                                        style={'font-weight': 'bold','font-size':'16px'}
-                                        ),
-                                        html.H5('Waiting for data',
-                                        id='error2',
-                                        style={'font-size':'26px'}
-                                        ),
-                                ],
-                                className="grid1-33"
-                            ),
-                            html.Div(
-                                children=[html.H5('Safety',
-                                        style={'font-weight': 'bold','font-size':'16px'}
-                                        ),
-                                        html.H5('Waiting for data',
-                                        id='error2',
-                                        style={'font-size':'26px'}
-                                        ),
-                                ],
-                                className="grid2-22"
-                            ),
-                            html.Div(
-                                children=[html.H5('Safety Front',
-                                        style={'font-weight': 'bold','font-size':'16px'}
-                                        ),
-                                        html.H5('Waiting for data',
-                                        id='error2',
-                                        style={'font-size':'26px'}
-                                        ),
-                                ],
-                                className="grid2-33"
-                                ),
-                            html.Div(
-                                children=daq.Indicator(
-                                            id='Plausibility',
-                                            label={'label':"Plausibility", 'style':{'font-weight': 'bold','font-size':'20px'}},
-                                            color="yellow",
-                                            size=45,
-                                            value=True
-                                        ),
-                                className="box7"
-                            ),
-                            html.Div(
-                                children=[html.H5('Safety',
-                                        style={'font-weight': 'bold','font-size':'16px'}
-                                        ),
-                                        html.H5(
-                                        id='safetyLine',
-                                        style={'font-size':'26px'}
-                                        ),
-                                    ],
-                                className="box8"
-                            ),
-                            html.Div(
-                                children=[html.H5('Safety front',
-                                        style={'font-weight': 'bold','font-size':'16px'}
-                                        ),
-                                        html.H5(
-                                        id='safetyFront',
-                                        style={'font-size':'26px'}
-                                    ),
-                                ],
-                                className="box9"
-                            ),
-                            html.Div(
-                                children=[html.H5('Car status',
-                                        style={'font-weight': 'bold','font-size':'16px'}
-                                        ),
-                                        html.H5(
-                                        id='carStatus',
-                                        style={'font-size':'26px'}
-                                    ),
-                                ],
-                                className="box10"
-                            ),
-                            html.Div(
-                                children=daq.LEDDisplay(
-                                        id='vel',
-                                        label={'label':"Speed", 'style':{'font-weight': 'bold','font-size':'16px'}},
-                                        labelPosition='top',
-                                        value='0',
-                                        color="black"
-                                    ),
-                                className="box11"
-                            ),
-                        ],
-                        className="cornerWrapperMulti"
-                    )
-                ],
-                className="box"
-            ),
-            html.Div(
-                children=[
-                    html.Div(
-                        children=[
-                            html.Div(
                                 children=html.Img(src="../assets/Balcon_ACCU.png", className="pedalbox-logo"),
                                 className="grid1-1"
                             ),
                             html.Div(
-                                children="AMS",
+                                children="ACCUMULATOR STATE",
                                 className="grid25-1",
                                 style={'text-align':'center'}
                             ),
@@ -153,7 +38,7 @@ layout=html.Div(id='element-to-hide', style={'display':'none'}),\
                                         style={'font-weight': 'bold','font-size':'16px'}
                                         ),
                                         html.H5('Waiting for data',
-                                        id='smAMS2',
+                                        id='smAMS3',
                                         style={'font-size':'26px'}
                                         ),
                                 ],className="grid1-22"
@@ -163,7 +48,7 @@ layout=html.Div(id='element-to-hide', style={'display':'none'}),\
                                         style={'font-weight': 'bold','font-size':'16px'}
                                         ),
                                         html.H5('Waiting for data',
-                                        id='errorAMS2',
+                                        id='errorAMS3',
                                         style={'font-size':'26px'}
                                         ),
                                 ],
@@ -174,7 +59,7 @@ layout=html.Div(id='element-to-hide', style={'display':'none'}),\
                                         style={'font-weight': 'bold','font-size':'16px'}
                                         ),
                                         html.H5('Waiting for data',
-                                        id='modeAMS2',
+                                        id='modeAMS3',
                                         style={'font-size':'26px'}
                                         ),
                                 ],
@@ -185,7 +70,7 @@ layout=html.Div(id='element-to-hide', style={'display':'none'}),\
                                         style={'font-weight': 'bold','font-size':'16px'}
                                         ),
                                         html.H5('Waiting for data',
-                                        id='timedOutSlave2',
+                                        id='timedOutSlave3',
                                         style={'font-size':'26px'}
                                         ),
                                 ],
@@ -193,7 +78,7 @@ layout=html.Div(id='element-to-hide', style={'display':'none'}),\
                             ), 
                             html.Div(
                                 children=daq.LEDDisplay(
-                                        id='cellMinVoltage2',
+                                        id='cellMinVoltage3',
                                         label={'label':"Cell min voltage", 'style':{'font-weight': 'bold','font-size':'16px'}},
                                         labelPosition='top',
                                         value='3.64',
@@ -203,7 +88,7 @@ layout=html.Div(id='element-to-hide', style={'display':'none'}),\
                             ),
                             html.Div(
                                 children=daq.LEDDisplay(
-                                        id='cellMaxVoltage2',
+                                        id='cellMaxVoltage3',
                                         label={'label':"Cell max voltage", 'style':{'font-weight': 'bold','font-size':'16px'}},
                                         labelPosition='top',
                                         value='0',
@@ -214,7 +99,7 @@ layout=html.Div(id='element-to-hide', style={'display':'none'}),\
                                 ),
                             html.Div(
                                 children=daq.Indicator(
-                                            id='imd2',
+                                            id='imd3',
                                             label={'label':"IMD", 'style':{'font-weight': 'bold','font-size':'20px'}},
                                             color="red",
                                             size=45,
@@ -224,7 +109,7 @@ layout=html.Div(id='element-to-hide', style={'display':'none'}),\
                             ),
                                 html.Div(
                                 children=daq.Indicator(
-                                            id='k12',
+                                            id='k13',
                                             label={'label':"K1", 'style':{'font-weight': 'bold','font-size':'20px'}},
                                             color="green",
                                             size=45,
@@ -234,7 +119,7 @@ layout=html.Div(id='element-to-hide', style={'display':'none'}),\
                                 ), 
                                 html.Div(
                                     children=daq.LEDDisplay(
-                                            id='idCellMinVoltage2',
+                                            id='idCellMinVoltage3',
                                             label={'label':"ID cell min voltage", 'style':{'font-weight': 'bold','font-size':'16px'}},
                                             labelPosition='top',
                                             value='0',
@@ -244,7 +129,7 @@ layout=html.Div(id='element-to-hide', style={'display':'none'}),\
                                 ),
                                 html.Div(
                                     children=daq.LEDDisplay(
-                                            id='idCellMaxVoltage2',
+                                            id='idCellMaxVoltage3',
                                             label={'label':"ID cell max voltage", 'style':{'font-weight': 'bold','font-size':'16px'}},
                                             labelPosition='top',
                                             value='0',
@@ -254,7 +139,7 @@ layout=html.Div(id='element-to-hide', style={'display':'none'}),\
                                 ),
                                 html.Div(
                                     children=daq.Indicator(
-                                                id='k22',
+                                                id='k23',
                                                 label={'label':"K2+", 'style':{'font-weight': 'bold','font-size':'20px'}},
                                                 color="green",
                                                 size=45,
@@ -264,7 +149,7 @@ layout=html.Div(id='element-to-hide', style={'display':'none'}),\
                                 ),
                                 html.Div(
                                     children=daq.LEDDisplay(
-                                            id='idCellMinVoltage2',
+                                            id='idCellMinVoltage3',
                                             label={'label':"ID cell min voltage", 'style':{'font-weight': 'bold','font-size':'16px'}},
                                             labelPosition='top',
                                             value='0',
@@ -274,7 +159,7 @@ layout=html.Div(id='element-to-hide', style={'display':'none'}),\
                                 ),
                                 html.Div(
                                     children=daq.LEDDisplay(
-                                            id='idCellMaxVoltage2',
+                                            id='idCellMaxVoltage3',
                                             label={'label':"ID cell max voltage", 'style':{'font-weight': 'bold','font-size':'16px'}},
                                             labelPosition='top',
                                             value='0',
@@ -284,7 +169,7 @@ layout=html.Div(id='element-to-hide', style={'display':'none'}),\
                                 ),
                                 html.Div(
                                     children=daq.LEDDisplay(
-                                            id='cellMinTemp2',
+                                            id='cellMinTemp3',
                                             label={'label':"Cell Min Temp", 'style':{'font-weight': 'bold','font-size':'16px'}},
                                             labelPosition='top',
                                             value='0',
@@ -294,7 +179,7 @@ layout=html.Div(id='element-to-hide', style={'display':'none'}),\
                                 ),
                                 html.Div(
                                     children=daq.LEDDisplay(
-                                            id='cellMaxTemp2',
+                                            id='cellMaxTemp3',
                                             label={'label':"Cell Max Temp", 'style':{'font-weight': 'bold','font-size':'16px'}},
                                             labelPosition='top',
                                             value='0',
@@ -304,7 +189,7 @@ layout=html.Div(id='element-to-hide', style={'display':'none'}),\
                                 ),
                                 html.Div(
                                 children=daq.Indicator(
-                                            id='ams2',
+                                            id='ams3',
                                             label={'label':"AMS", 'style':{'font-weight': 'bold','font-size':'20px'}},
                                             color="red",
                                             size=45,
@@ -314,7 +199,7 @@ layout=html.Div(id='element-to-hide', style={'display':'none'}),\
                                 ),
                                 html.Div(
                                     children=daq.Indicator(
-                                                id='k32',
+                                                id='k33',
                                                 label={'label':"K3-", 'style':{'font-weight': 'bold','font-size':'20px'}},
                                                 color="green",
                                                 size=45,
@@ -324,7 +209,7 @@ layout=html.Div(id='element-to-hide', style={'display':'none'}),\
                                 ), 
                                 html.Div(
                                     children=daq.LEDDisplay(
-                                            id='idCellMinTemp2',
+                                            id='idCellMinTemp3',
                                             label={'label':"ID Cell Min Temp", 'style':{'font-weight': 'bold','font-size':'16px'}},
                                             labelPosition='top',
                                             value='0',
@@ -334,7 +219,7 @@ layout=html.Div(id='element-to-hide', style={'display':'none'}),\
                                 ),
                                 html.Div(
                                     children=daq.LEDDisplay(
-                                            id='idCellMaxTemp2',
+                                            id='idCellMaxTemp3',
                                             label={'label':"ID Cell Max Temp", 'style':{'font-weight': 'bold','font-size':'16px'}},
                                             labelPosition='top',
                                             value='0',
@@ -344,7 +229,7 @@ layout=html.Div(id='element-to-hide', style={'display':'none'}),\
                                 ),
                                 html.Div(
                                     children=daq.LEDDisplay(
-                                            id='totalVoltage2',
+                                            id='totalVoltage3',
                                             label={'label':"Estimated Voltage", 'style':{'font-weight': 'bold','font-size':'16px'}},
                                             labelPosition='top',
                                             value='0',
@@ -354,7 +239,7 @@ layout=html.Div(id='element-to-hide', style={'display':'none'}),\
                                 ),
                                 html.Div(
                                     children=daq.LEDDisplay(
-                                            id='current2',
+                                            id='current3',
                                             label={'label':"Output Current", 'style':{'font-weight': 'bold','font-size':'16px'}},
                                             labelPosition='top',
                                             value='0',
@@ -362,101 +247,8 @@ layout=html.Div(id='element-to-hide', style={'display':'none'}),\
                                         ),
                                     className="grid5-55"
                                 ),
-                                
                         ],
                         className="cornerWrapperMulti"
-                    )
-                ],
-                className="box"
-            ),
-            html.Div(
-                children=[
-                    html.Div(
-                        children=[
-                            html.Div(
-                                children=html.Img(src="../assets/dash.jpeg", className="pedalbox-logo"),
-                                className="box1"
-                            ),
-                            html.Div(
-                                children="Dash",
-                                className="box2"
-                            ),
-                            html.Div(
-                                children=[html.H5('State Machine',
-                                        style={'font-weight': 'bold','font-size':'16px'}
-                                        ),
-                                        html.H5(
-                                        id='smAMS',
-                                        style={'font-size':'26px'}
-                                        ),
-                                        html.Br(),
-                                        html.Br(),
-                                        html.H5('Previous State',
-                                        style={'font-weight': 'bold','font-size':'16px'}
-                                        ),
-                                        html.H5(
-                                        id='errorAMS',
-                                        style={'font-size':'26px'}
-                                        ),
-                                ],
-                                className="box4"
-                            ),
-                            html.Div(
-                                children=daq.Indicator(
-                                            id='Frontok',
-                                            label={'label':"FRONT OK", 'style':{'font-weight': 'bold','font-size':'20px'}},
-                                            color="green",
-                                            size=45,
-                                            value=True
-                                        ),
-                                className="box5"
-                            ),
-                            
-                            html.Div(
-                                children=[html.H5('Safety',
-                                        style={'font-weight': 'bold','font-size':'16px'}
-                                        ),
-                                        html.H5(
-                                        id='safetyLine',
-                                        style={'font-size':'26px'}
-                                        ),
-                                    ],
-                                className="box8"
-                            ),
-                            html.Div(
-                                children=[html.H5('Safety front',
-                                        style={'font-weight': 'bold','font-size':'16px'}
-                                        ),
-                                        html.H5(
-                                        id='safetyFront',
-                                        style={'font-size':'26px'}
-                                    ),
-                                ],
-                                className="box9"
-                            ),
-                            html.Div(
-                                children=[html.H5('Button',
-                                        style={'font-weight': 'bold','font-size':'16px'}
-                                        ),
-                                        html.H5(
-                                        id='carStatus',
-                                        style={'font-size':'26px'}
-                                    ),
-                                ],
-                                className="box10"
-                            ),
-                            html.Div(
-                                children=daq.LEDDisplay(
-                                        id='vel',
-                                        label={'label':"Speed", 'style':{'font-weight': 'bold','font-size':'16px'}},
-                                        labelPosition='top',
-                                        value='0',
-                                        color="black"
-                                    ),
-                                className="box11"
-                            ),
-                        ],
-                        className="cornerWrapper"
                     )
                 ],
                 className="box"
@@ -466,43 +258,240 @@ layout=html.Div(id='element-to-hide', style={'display':'none'}),\
                         html.Div(
                             children=[
                                 html.Div(
-                                    children=html.Img(src="../assets/PedalBox.jpg", className="pedalbox-logo"),
-                                    className="box1"
+                                    children=html.Img(src="../assets/Motor.png", className="pedalbox-logo"),
+                                    className="grid1-1"
                                 ),
                                 html.Div(
-                                    children="Pedalera",
-                                    className="box2"
+                                    children="INVERTERS & MOTORS",
+                                    className="grid25-1",
+                                    style={'text-align':'center'}
                                 ),
                                 html.Div(
-                                    children=[dcc.Graph(
-                                        id="pedalera",
-                                        figure={'layout':{"autosize":False}},
-                                        style={'width': '100%', 'height':'100%', 'margin':{'l':'0','r':'0','b':'0','t':'0'}, 'margin-top':'-35px'},
-                                        config={"responsive":True,"displayModeBar": False, "edits":{"titleText":False,"legendText":False, "annotationPosition":False,"colorbarTitleText":False},"displayModeBar":True},
+                                children=[html.H5('AMS State Machine',
+                                        style={'font-weight': 'bold','font-size':'16px'}
+                                        ),
+                                        html.H5('Waiting for data',
+                                        id='smAMS4',
+                                        style={'font-size':'26px'}
+                                        ),
+                                ],className="grid1-22"
+                            ),
+                            html.Div(                                        
+                                children=[html.H5('AMS Error',
+                                        style={'font-weight': 'bold','font-size':'16px'}
+                                        ),
+                                        html.H5('Waiting for data',
+                                        id='errorAMS4',
+                                        style={'font-size':'26px'}
+                                        ),
+                                ],
+                                className="grid1-33"
+                            ),
+                            html.Div(
+                                children=[html.H5('AMS Mode',
+                                        style={'font-weight': 'bold','font-size':'16px'}
+                                        ),
+                                        html.H5('Waiting for data',
+                                        id='modeAMS4',
+                                        style={'font-size':'26px'}
+                                        ),
+                                ],
+                                className="grid1-44"
+                            ), 
+                            html.Div(
+                                children=[html.H5('Timed Out Slave',
+                                        style={'font-weight': 'bold','font-size':'16px'}
+                                        ),
+                                        html.H5('Waiting for data',
+                                        id='timedOutSlave4',
+                                        style={'font-size':'26px'}
+                                        ),
+                                ],
+                                className="grid1-55"
+                            ), 
+                            html.Div(
+                                children=daq.LEDDisplay(
+                                        id='cellMinVoltage4',
+                                        label={'label':"Cell min voltage", 'style':{'font-weight': 'bold','font-size':'16px'}},
+                                        labelPosition='top',
+                                        value='3.64',
+                                        color="black"
+                                    ),
+                                className="grid2-22"
+                            ),
+                            html.Div(
+                                children=daq.LEDDisplay(
+                                        id='cellMaxVoltage4',
+                                        label={'label':"Cell max voltage", 'style':{'font-weight': 'bold','font-size':'16px'}},
+                                        labelPosition='top',
+                                        value='0',
+                                        color="black"
 
                                     ),
-                                    dcc.Slider( -28, 28, 0.5, value=0,  included=False, id="volante",
-                                                    tooltip={"placement": "bottom", "always_visible": True},
-                                                    marks={
-                                                            0: {'label': '0°', 'style': {'color': '#f50', 'size':'18px'}},
-
-                                                        },
-                                               ),
-                                    ],
-                                    className="box3"
-                                )
+                                className="grid2-33"
+                                ),
+                            html.Div(
+                                children=daq.Indicator(
+                                            id='imd4',
+                                            label={'label':"IMD", 'style':{'font-weight': 'bold','font-size':'20px'}},
+                                            color="red",
+                                            size=45,
+                                            value=True
+                                        ),
+                                className="grid2-44"
+                            ),
+                                html.Div(
+                                children=daq.Indicator(
+                                            id='k14',
+                                            label={'label':"K1", 'style':{'font-weight': 'bold','font-size':'20px'}},
+                                            color="green",
+                                            size=45,
+                                            value=True
+                                        ),
+                                className="grid2-55"
+                                ), 
+                                html.Div(
+                                    children=daq.LEDDisplay(
+                                            id='idCellMinVoltage4',
+                                            label={'label':"ID cell min voltage", 'style':{'font-weight': 'bold','font-size':'16px'}},
+                                            labelPosition='top',
+                                            value='0',
+                                            color="black"
+                                        ),
+                                    className="grid3-22"
+                                ),
+                                html.Div(
+                                    children=daq.LEDDisplay(
+                                            id='idCellMaxVoltage4',
+                                            label={'label':"ID cell max voltage", 'style':{'font-weight': 'bold','font-size':'16px'}},
+                                            labelPosition='top',
+                                            value='0',
+                                            color="black"
+                                        ),
+                                    className="grid3-33"
+                                ),
+                                html.Div(
+                                    children=daq.Indicator(
+                                                id='k24',
+                                                label={'label':"K2+", 'style':{'font-weight': 'bold','font-size':'20px'}},
+                                                color="green",
+                                                size=45,
+                                                value=True
+                                            ),
+                                    className="grid3-55"
+                                ),
+                                html.Div(
+                                    children=daq.LEDDisplay(
+                                            id='idCellMinVoltage4',
+                                            label={'label':"ID cell min voltage", 'style':{'font-weight': 'bold','font-size':'16px'}},
+                                            labelPosition='top',
+                                            value='0',
+                                            color="black"
+                                        ),
+                                    className="grid3-22"
+                                ),
+                                html.Div(
+                                    children=daq.LEDDisplay(
+                                            id='idCellMaxVoltage4',
+                                            label={'label':"ID cell max voltage", 'style':{'font-weight': 'bold','font-size':'16px'}},
+                                            labelPosition='top',
+                                            value='0',
+                                            color="black"
+                                        ),
+                                    className="grid3-33"
+                                ),
+                                html.Div(
+                                    children=daq.LEDDisplay(
+                                            id='cellMinTemp4',
+                                            label={'label':"Cell Min Temp", 'style':{'font-weight': 'bold','font-size':'16px'}},
+                                            labelPosition='top',
+                                            value='0',
+                                            color="black"
+                                        ),
+                                    className="grid4-22"
+                                ),
+                                html.Div(
+                                    children=daq.LEDDisplay(
+                                            id='cellMaxTemp4',
+                                            label={'label':"Cell Max Temp", 'style':{'font-weight': 'bold','font-size':'16px'}},
+                                            labelPosition='top',
+                                            value='0',
+                                            color="black"
+                                        ),
+                                    className="grid4-33"
+                                ),
+                                html.Div(
+                                children=daq.Indicator(
+                                            id='ams4',
+                                            label={'label':"AMS", 'style':{'font-weight': 'bold','font-size':'20px'}},
+                                            color="red",
+                                            size=45,
+                                            value=True
+                                        ),
+                                className="grid4-44"
+                                ),
+                                html.Div(
+                                    children=daq.Indicator(
+                                                id='k34',
+                                                label={'label':"K3-", 'style':{'font-weight': 'bold','font-size':'20px'}},
+                                                color="green",
+                                                size=45,
+                                                value=True
+                                            ),
+                                    className="grid4-55"
+                                ), 
+                                html.Div(
+                                    children=daq.LEDDisplay(
+                                            id='idCellMinTemp4',
+                                            label={'label':"ID Cell Min Temp", 'style':{'font-weight': 'bold','font-size':'16px'}},
+                                            labelPosition='top',
+                                            value='0',
+                                            color="black"
+                                        ),
+                                    className="grid5-22"
+                                ),
+                                html.Div(
+                                    children=daq.LEDDisplay(
+                                            id='idCellMaxTemp4',
+                                            label={'label':"ID Cell Max Temp", 'style':{'font-weight': 'bold','font-size':'16px'}},
+                                            labelPosition='top',
+                                            value='0',
+                                            color="black"
+                                        ),
+                                    className="grid5-33"
+                                ),
+                                html.Div(
+                                    children=daq.LEDDisplay(
+                                            id='totalVoltage4',
+                                            label={'label':"Estimated Voltage", 'style':{'font-weight': 'bold','font-size':'16px'}},
+                                            labelPosition='top',
+                                            value='0',
+                                            color="black"
+                                        ),
+                                    className="grid5-44"
+                                ),
+                                html.Div(
+                                    children=daq.LEDDisplay(
+                                            id='current4',
+                                            label={'label':"Output Current", 'style':{'font-weight': 'bold','font-size':'16px'}},
+                                            labelPosition='top',
+                                            value='0',
+                                            color="black"
+                                        ),
+                                    className="grid5-55"
+                                ),
                             ],
-                            className="cornerWrapper"
+                            className="cornerWrapperMulti"
                         ),
                     ],
                     className="box"
                 ),
         ],
-    className='container3'
+    className='container4'
     )
 
 @callback(
-    [Output("vel", "value"),Output("pedalera", "figure"), Output('smAMS2', 'children'), Output('errorAMS2', 'children'), Output('modeAMS2', 'children'), Output('timedOutSlave2', 'children'), Output('cellMinVoltage2', 'value'), Output('cellMaxVoltage2', 'value'), Output('idCellMaxVoltage2', 'value'), Output('idCellMinVoltage2', 'value'), Output('cellMinTemp2', 'value'), Output('cellMaxTemp2', 'value'), Output('idCellMinTemp2', 'value'), Output('idCellMaxTemp2', 'value'), Output('totalVoltage2', 'value'), Output('current2', 'value'), Output('k12', 'color'), Output('k22', 'color'), Output('k32', 'color'), Output('cellMinVoltage2', 'color'), Output('cellMaxTemp2', 'color'), Output('imd2', 'color'), Output('ams2', 'color'), ],
+    [Output('smAMS3', 'children'), Output('errorAMS3', 'children'), Output('modeAMS3', 'children'), Output('timedOutSlave3', 'children'), Output('cellMinVoltage3', 'value'), Output('cellMaxVoltage3', 'value'), Output('idCellMaxVoltage3', 'value'), Output('idCellMinVoltage3', 'value'), Output('cellMinTemp3', 'value'), Output('cellMaxTemp3', 'value'), Output('idCellMinTemp3', 'value'), Output('idCellMaxTemp3', 'value'), Output('totalVoltage3', 'value'), Output('current3', 'value'), Output('k13', 'color'), Output('k23', 'color'), Output('k33', 'color'), Output('cellMinVoltage3', 'color'), Output('cellMaxTemp3', 'color'), Output('imd3', 'color'), Output('ams3', 'color'), ],
     Input('int-component-el', 'n_intervals'),
 )
 def acutaliza(N):
@@ -516,4 +505,4 @@ def acutaliza(N):
     ###MASTER###
     totalVoltage, minVoltage, idMinVoltage, voltageColor, maxVoltage, idMaxVoltage, minTemp, idMinTemp, maxTemp, idMaxTemp, colorTemp = interfaceUpdater.updateVoltages(data.get('0311'))
     k1, k2, k3, smAMS, errorAMS, imd, amsMode, timedOutSlvave, current, amsLed = interfaceUpdater.contactorFeedbackAndAMSState(data.get('0310'))
-    return vel, pedalera, smAMS, errorAMS, amsMode, timedOutSlvave, minVoltage, maxVoltage, idMaxVoltage, idMinVoltage, minTemp, maxTemp, idMinTemp, idMaxTemp, totalVoltage, current, k1, k2, k3, voltageColor, colorTemp, imd, amsLed
+    return smAMS, errorAMS, amsMode, timedOutSlvave, minVoltage, maxVoltage, idMaxVoltage, idMinVoltage, minTemp, maxTemp, idMinTemp, idMaxTemp, totalVoltage, current, k1, k2, k3, voltageColor, colorTemp, imd, amsLed

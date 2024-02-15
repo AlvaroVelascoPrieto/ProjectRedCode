@@ -10214,6 +10214,20 @@ div.margin {
   grid-row-gap: 10px;
  } 
 
+ .container4{
+  margin: auto auto;
+  width: auto;
+  height:auto;
+  display:grid;
+  grid-template-columns: 99%;
+  padding-left:5px;
+  padding-top:20px;
+  padding-bottom:20px;
+  grid-row: 50% 50%;
+  grid-column-gap: 1%;
+  grid-row-gap: 1%;
+ } 
+
 .box{
    background-color:#fff;
    padding:20px;
