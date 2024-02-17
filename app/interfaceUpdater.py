@@ -512,6 +512,7 @@ AMSERRORS = {
 }
 
 def updateFigure1(data):
+    #print(data)
     datosAcc = [int(i[10:12],base=16) for i in data]
     datosBrk = [int(i[6:8],base=16) for i in data]
     datosX = [i for i in range(len(datosAcc))]
@@ -617,8 +618,8 @@ def safetyFront(data):
     #2-OK->63,Inertia->60,seta_cockpit->62,BOTS->56,
     #k3
     #print(data)
-    safe=int(data[4:6][0:2],base=16)
-    #print(safe)
+    safe=int(data[2:4][0:2],base=16)
+    print(safe)
     if safe==63:
         frontSafetyState='Front ok'
     elif safe==62:

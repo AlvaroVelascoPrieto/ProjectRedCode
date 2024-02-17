@@ -1,8 +1,10 @@
+import os
 import dash
 import dash_bootstrap_components as dbc
 
-
+debug = False if os.environ["DASH_DEBUG_MODE"] == "False" else True
 app = dash.Dash(external_stylesheets=[dbc.themes.BOOTSTRAP], use_pages=True)
+server = app.server
 from pages.logReader import dataDict
 app.layout = dash.html.Div([
     dbc.Navbar([
@@ -44,4 +46,5 @@ app.layout = dash.html.Div([
 
 
 if __name__ == '__main__':
-    app.run_server(debug=True,)
+    app.run(host="0.0.0.0", port="8050", debug=debug)
+    
