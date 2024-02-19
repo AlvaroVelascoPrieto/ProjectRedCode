@@ -5,7 +5,7 @@ import redis
 import time
 
 # connect to redis
-client = redis.Redis(host='redis', port=6379, health_check_interval=30)
+client = redis.Redis(host='redis', port=6379, health_check_interval=30, decode_responses=True)
 
 # set a key
 client.set('test-key', 'MAKINON')

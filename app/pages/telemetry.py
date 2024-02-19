@@ -2,9 +2,12 @@ import dash_daq as daq
 import dash
 from dash import html, callback, Output, Input, dcc, State
 import interfaceUpdater
+import redis
 import dash_bootstrap_components as dbc
 from JSONReader import get_data, get_0310, get_0001, get_currentFL, get_currentFR, get_currentRL, \
     get_currentRR, get_YawRate, get_YawRateRef
+
+client = redis.Redis(host='redis', port=6379, health_check_interval=30, decode_responses=True)
 
 pilaId0310=[0,0,0,0,0,0,0,0,0,0]
 dash.register_page(__name__)
@@ -48,7 +51,7 @@ layout = html.Div(id='element-to-hide', style={'display':'none'}),\
             children=[
             dcc.Interval(
                 id='int-component',
-                interval=225, # in milliseconds
+                interval=325, # in milliseconds
                 n_intervals=0
             ),
         ],
@@ -839,6 +842,14 @@ def acutaliza(N):
     steering = interfaceUpdater.updateSteeringWheel(data.get('0181'))
     power, torqueValue = interfaceUpdater.dashData(data.get('00a2'))
     tvRunning = interfaceUpdater.tvRunning(data.get('00f0'))
+    # set a key
+    client = redis.Redis(host='redis', port=6379, health_check_interval=30, decode_responses=True)
+    # get a value
+    carState = client.get('0001')
+    print(carState)
+    safetyFront='velas'
+    #print("aaaa")
+    #print(carState)
     #end = time.time()
     #print(end-begining)
     return figura1, totalVoltage, minVoltage, idMinVoltage, voltageColor, voltageColor, maxVoltage, idMaxVoltage, k1, k2, k3, safetyFront, safetyValue, carState, sw1, sw2, sw3, sw4, speedFL, speedFR, speedRL, speedRR, ls1, ls2, ls3, ls4, imd, ams, plausibility, tempFL, tempFR, tempRL, tempRR, powerFL, powerFR, powerRL, powerRR, tqComFL, tqComFR, tqComRL, tqComRR, speed, smAMS, errorAMS, currentFigure, yawRateFigure, steering, power, torqueValue, tvRunning

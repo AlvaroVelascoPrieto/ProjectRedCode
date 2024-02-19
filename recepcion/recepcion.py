@@ -1,6 +1,16 @@
 import json
 import socket
 import time
+import random
+import redis
+
+# connect to redis
+client = redis.Redis(host='redis', port=6379, health_check_interval=30, decode_responses=True)
+
+
+
+
+print("here")
 
 BUFFERSIZE = 128
 LOCALIP = ''
@@ -40,14 +50,21 @@ dictionary = {
 }
 while True:
     #empiece=time.time()
+    #print('Vamo')
     try:
-        data,addr = sock.recvfrom(BUFFERSIZE)
+        #data,addr = sock.recvfrom(BUFFERSIZE)
         #print(data)
         #sock.close()
-        msg = str(data.hex())
+        #msg = str(data.hex())
 
-        id = msg[0:4]
-        dictionary.update({str(id) : str(''.join(map(str, msg[4:]))).removeprefix('c2')})
+        #id = msg[0:4]
+        id = '0001'
+        data = str(random.randint(10, 99)) + '00000000000000'
+        # set a key
+        client.set(id, data)
+        time.sleep(0.05)
+        print(data)
+        #dictionary.update({str(id) : str(''.join(map(str, msg[4:]))).removeprefix('c2')})
         #print(dictionary)
         #print(id)
     except TimeoutError:
