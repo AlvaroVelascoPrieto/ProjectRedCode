@@ -1,6 +1,18 @@
 import os
 import dash
 import dash_bootstrap_components as dbc
+import redis
+import time
+
+# connect to redis
+client = redis.Redis(host='redis', port=6379, health_check_interval=30)
+
+# set a key
+client.set('test-key', 'MAKINON')
+
+# get a value
+value = client.get('test-key')
+print(value)
 
 debug = False if os.environ["DASH_DEBUG_MODE"] == "False" else True
 app = dash.Dash(external_stylesheets=[dbc.themes.BOOTSTRAP], use_pages=True)
