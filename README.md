@@ -48,18 +48,24 @@ $git clone https://github.com/AlvaroVelascoPrieto/ProjectRedCode
 ```
 
 Una vez obtenidos los archivos del repositorio, accedemos a la carpeta y construimos la imagen web mediante el siguiente comando:
+#Modo development:
 ```bash
-#Modo development
-$ sudo docker build -f Dockerfile.dev -t app . 
+$ sudo docker build -f app/Dockerfile.dev -t app . 
+```
+Modo deployment
+```bash
+
+$ sudo docker build -f app/Dockerfile -t app . 
 ```
 ```bash
-#Modo deployment
-$ sudo docker build -f Dockerfile -t app . 
+
+$ sudo docker build -f recepcion/Dockerfile -t app2 . 
 ```
+
 
 Tras esto, desplegamos los servicios mediante:
 ```bash
-$ sudo docker run -p 8050:8050 -v "$(pwd)"/app:/app --rm app   
+$ sudo docker compose up 
 ```
 
 Una vez hecho esto la aplicación web estará corriendo en el puerto 8050. (http://localhost:8050/).
