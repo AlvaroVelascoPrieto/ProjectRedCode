@@ -2,13 +2,14 @@ import dash_daq as daq
 import dash
 from dash import html, callback, Output, Input, dcc, State
 import interfaceUpdater
+import redisConector as rc
 import redis
 import dash_bootstrap_components as dbc
 from JSONReader import get_data, get_0310, get_0001, get_currentFL, get_currentFR, get_currentRL, \
     get_currentRR, get_YawRate, get_YawRateRef
 
 client = redis.Redis(host='redis', port=6379, health_check_interval=30, decode_responses=True)
-
+redisConector = rc.redisConector()
 pilaId0310=[0,0,0,0,0,0,0,0,0,0]
 dash.register_page(__name__)
 latchedStatus = {
@@ -820,34 +821,29 @@ layout = html.Div(id='element-to-hide', style={'display':'none'}),\
 )
 def acutaliza(N):
     #begining = time.time()
-    data = get_data()
     #print(data)
     #figura2 = interfaceUpdater.updateFigure2(data.get('0310'))
 
-    totalVoltage, minVoltage, idMinVoltage, voltageColor, maxVoltage, idMaxVoltage, minTemp, idMinTemp, maxTemp, idMaxTemp, colorTemp = interfaceUpdater.updateVoltages(data.get('0311'))
-    k1, k2, k3, smAMS, errorAMS, imd, amsMode, timedOutSlvave, current, amsLed = interfaceUpdater.contactorFeedbackAndAMSState(data.get('0310'))
+    totalVoltage, minVoltage, idMinVoltage, voltageColor, maxVoltage, idMaxVoltage, minTemp, idMinTemp, maxTemp, idMaxTemp, colorTemp = interfaceUpdater.updateVoltages(redisConector.get_value('0311'))
+    k1, k2, k3, smAMS, errorAMS, imd, amsMode, timedOutSlvave, current, amsLed = interfaceUpdater.contactorFeedbackAndAMSState(redisConector.get_value('0310'))
 
-    figura1 = interfaceUpdater.updateFigure1(get_0001())
+    figura1 = interfaceUpdater.updateFigure1(redisConector.get_value('0001'))
 
-    safetyFront = interfaceUpdater.safetyFront(data.get('00a2'))
-    safetyValue, imd, ams, plausibility, carState = interfaceUpdater.safety(data.get('00f1'))
+    safetyFront = interfaceUpdater.safetyFront(redisConector.get_value('00a2'))
+    safetyValue, imd, ams, plausibility, carState = interfaceUpdater.safety(redisConector.get_value('00f1'))
 
-    sw1, ls1, sw2, ls2, sw3, ls3, sw4, ls4 = interfaceUpdater.motorData(data.get('01cf'), data.get('02cf'), data.get('01ce'), data.get('02ce'))
-    speedFL, speedFR, speedRL, speedRR = interfaceUpdater.motorRPM(data.get('024f'), data.get('034f'), data.get('024e'), data.get('034e'))
-    tempFL, tempFR, tempRL, tempRR, powerFL, powerFR, powerRL, powerRR = interfaceUpdater.powerAndDCVoltage(data.get('028f'), data.get('038f'), data.get('028e'), data.get('038e'))
-    tqComFL, tqComFR, tqComRL, tqComRR = interfaceUpdater.torqueCommands(data.get('020e'), data.get('040e'), data.get('020f'), data.get('040f'))
-    speed, yawRateRef = interfaceUpdater.speedAndYawRateRef(data.get('00f2'))
-    currentFigure = interfaceUpdater.currents(get_currentFL(), get_currentFR(), get_currentRL(), get_currentRR())
-    yawRateFigure = interfaceUpdater.updateYawRate(get_YawRate(), get_YawRateRef())
-    steering = interfaceUpdater.updateSteeringWheel(data.get('0181'))
-    power, torqueValue = interfaceUpdater.dashData(data.get('00a2'))
-    tvRunning = interfaceUpdater.tvRunning(data.get('00f0'))
-    # set a key
-    client = redis.Redis(host='redis', port=6379, health_check_interval=30, decode_responses=True)
-    # get a value
-    carState = client.get('0001')
-    print(carState)
-    safetyFront='velas'
+    sw1, ls1, sw2, ls2, sw3, ls3, sw4, ls4 = interfaceUpdater.motorData(redisConector.get_value('01cf'), redisConector.get_value('02cf'), redisConector.get_value('01ce'), redisConector.get_value('02ce'))
+    speedFL, speedFR, speedRL, speedRR = interfaceUpdater.motorRPM(redisConector.get_value('024f'), redisConector.get_value('034f'), redisConector.get_value('024e'), redisConector.get_value('034e'))
+    tempFL, tempFR, tempRL, tempRR, powerFL, powerFR, powerRL, powerRR = interfaceUpdater.powerAndDCVoltage(redisConector.get_value('028f'), redisConector.get_value('038f'), redisConector.get_value('028e'), redisConector.get_value('038e'))
+    tqComFL, tqComFR, tqComRL, tqComRR = interfaceUpdater.torqueCommands(redisConector.get_value('020e'), redisConector.get_value('040e'), redisConector.get_value('020f'), redisConector.get_value('040f'))
+    speed, yawRateRef = interfaceUpdater.speedAndYawRateRef(redisConector.get_value('00f2'))
+    currentFigure = interfaceUpdater.currents(redisConector.get_value('024f'), redisConector.get_value('034f'), redisConector.get_value('024e'), redisConector.get_value('034f'))
+    yawRateFigure = interfaceUpdater.updateYawRate(redisConector.get_value('0122'), redisConector.get_value('00f2'))
+    steering = interfaceUpdater.updateSteeringWheel(redisConector.get_value('0181'))
+    power, torqueValue = interfaceUpdater.dashData(redisConector.get_value('00a2'))
+    tvRunning = interfaceUpdater.tvRunning(redisConector.get_value('00f0'))
+    carState = redisConector.get_value('0001')
+    safetyFront = "seldas"
     #print("aaaa")
     #print(carState)
     #end = time.time()
@@ -860,8 +856,7 @@ def acutaliza(N):
     [State("modal", "is_open")],
 )
 def toggle_modal(n1, n2, is_open):
-    data = get_data()
-    contenido = interfaceUpdater.updateStatuswordTranslation(data.get('01cf'), data.get('02cf'), data.get('01ce'), data.get('02ce'))
+    contenido = interfaceUpdater.updateStatuswordTranslation(redisConector.get_value('01cf'), redisConector.get_value('02cf'), redisConector.get_value('01ce'), redisConector.get_value('02ce'))
     if n1 or n2:
         return not is_open, contenido
     return is_open, contenido

@@ -3,9 +3,12 @@ from JSONReader import get_0001, get_data
 import dash
 import dash_daq as daq
 import dash_bootstrap_components as dbc
+import redisConector as rc
 from dash import html, Dash, Input, ctx, Output, dcc, callback
 from dash.exceptions import PreventUpdate
 import interfaceUpdater
+
+redisConector = rc.redisConector()
 
 dash.register_page(__name__)
 layout=html.Div(id='element-to-hide', style={'display':'none'}),\
@@ -498,11 +501,11 @@ def acutaliza(N):
     #begining = time.time()
     data = get_data()
     vel = random.randint(0,10)
-    pedalera = interfaceUpdater.updatePedaleraMulti(get_0001())
+    pedalera = interfaceUpdater.updatePedaleraMulti(redisConector.get_value('0001'))
     #end = time.time()
     #print(end-begining)
 
     ###MASTER###
-    totalVoltage, minVoltage, idMinVoltage, voltageColor, maxVoltage, idMaxVoltage, minTemp, idMinTemp, maxTemp, idMaxTemp, colorTemp = interfaceUpdater.updateVoltages(data.get('0311'))
-    k1, k2, k3, smAMS, errorAMS, imd, amsMode, timedOutSlvave, current, amsLed = interfaceUpdater.contactorFeedbackAndAMSState(data.get('0310'))
+    totalVoltage, minVoltage, idMinVoltage, voltageColor, maxVoltage, idMaxVoltage, minTemp, idMinTemp, maxTemp, idMaxTemp, colorTemp = interfaceUpdater.updateVoltages(redisConector.get_value('0311'))
+    k1, k2, k3, smAMS, errorAMS, imd, amsMode, timedOutSlvave, current, amsLed = interfaceUpdater.contactorFeedbackAndAMSState(redisConector.get_value('0310'))
     return smAMS, errorAMS, amsMode, timedOutSlvave, minVoltage, maxVoltage, idMaxVoltage, idMinVoltage, minTemp, maxTemp, idMinTemp, idMaxTemp, totalVoltage, current, k1, k2, k3, voltageColor, colorTemp, imd, amsLed

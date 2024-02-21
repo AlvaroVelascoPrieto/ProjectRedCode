@@ -7,9 +7,6 @@ import redis
 # connect to redis
 client = redis.Redis(host='redis', port=6379, health_check_interval=30, decode_responses=True)
 
-
-
-
 print("here")
 
 BUFFERSIZE = 128
@@ -48,6 +45,10 @@ dictionary = {
     "0122": "0000000000000000",
     "0181": "0000000000000000"
 }
+
+for i in dictionary:
+    client.set(i, dictionary[i])
+
 while True:
     #empiece=time.time()
     #print('Vamo')
@@ -58,12 +59,14 @@ while True:
         #msg = str(data.hex())
 
         #id = msg[0:4]
-        id = '0001'
-        data = str(random.randint(10, 99)) + '00000000000000'
+        int = random.randint(0, 4)
+        id = ['0310', '0001', '00a2', '00f1', '0311']
+        id = id[int]
+        data = str(random.randint(100000, 999999)) + '0000000000'
         # set a key
-        client.set(id, data)
+        client.set(id,data)
+        #client.set(str(id), str(''.join(map(str, msg[4:]))).removeprefix('c2'))
         time.sleep(0.05)
-        print(data)
         #dictionary.update({str(id) : str(''.join(map(str, msg[4:]))).removeprefix('c2')})
         #print(dictionary)
         #print(id)
