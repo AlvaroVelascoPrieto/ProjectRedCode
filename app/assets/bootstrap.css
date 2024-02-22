@@ -10223,7 +10223,7 @@ div.margin {
   padding-left:5px;
   padding-top:20px;
   padding-bottom:20px;
-  grid-row: 50% 50%;
+  grid-row: 32% 32% 32%;
   grid-column-gap: 1%;
   grid-row-gap: 1%;
  } 
@@ -10537,6 +10537,8 @@ div.margin {
     margin-left:0px;
 }
 
+
+
 .cornerGraph{
     height:300px;
 }
@@ -10570,7 +10572,7 @@ div.margin {
 
 .statuswordtit{
     margin-top:0px;
-    margin-botton: 0px;
+    margin-bottom: 0px;
 }
 
 div.inline{
@@ -10579,24 +10581,53 @@ div.inline{
 
 .contenedorMotores {
   float:left;
+  display: grid;
+  grid-column: 25% 25% 25% 25%;
 }
 
 .motor1{
-    width: 22%;
+    grid-column-start: 1;
+    grid-column-end: 1;
     float:left;
 }
 
 .motor2{
-    width: 22%;
+    grid-column-start: 2;
+    grid-column-end: 2;
     float:left;
 }
 
 .motor3{
-    width: 22%;
+    grid-column-start: 3;
+    grid-column-end: 3;
     float:left;
 }
 
 .motor4{
-    width: 22%;
+    grid-column-start: 4;
+    grid-column-end: 4;
     float:left;
+}
+
+.motor11{
+  grid-column-start: 1;
+  grid-column-end: 1;
+}
+
+.motor21{
+  grid-column-start: 2;
+  grid-column-end: 2;
+  
+}
+
+.motor31{
+  grid-column-start: 3;
+  grid-column-end: 3;
+  
+}
+
+.motor41{
+  grid-column-start: 4;
+  grid-column-end: 4;
+  
 }

@@ -305,14 +305,14 @@ layout=html.Div(id='element-to-hide', style={'display':'none'}),\
                                     className="grid4-33"
                                 ),
                                 html.Div(
-                                children=daq.Indicator(
-                                            id='ams2',
-                                            label={'label':"AMS", 'style':{'font-weight': 'bold','font-size':'20px'}},
-                                            color="red",
-                                            size=45,
-                                            value=True
-                                        ),
-                                className="grid4-44"
+                                    children=daq.Indicator(
+                                                id='ams2',
+                                                label={'label':"AMS", 'style':{'font-weight': 'bold','font-size':'20px'}},
+                                                color="red",
+                                                size=45,
+                                                value=True
+                                            ),
+                                    className="grid4-44"
                                 ),
                                 html.Div(
                                     children=daq.Indicator(
