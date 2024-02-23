@@ -76,4 +76,3 @@ def displayClick(btn1, btn2):
     print(msg)
     return html.Img(src="assets/fsb_round_logo.png",className="header-logo")
 """
-

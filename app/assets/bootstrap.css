@@ -10223,7 +10223,7 @@ div.margin {
   padding-left:5px;
   padding-top:20px;
   padding-bottom:20px;
-  grid-row: 32% 32% 32%;
+  grid-row: 25% 25% 50%;
   grid-column-gap: 1%;
   grid-row-gap: 1%;
  } 
@@ -10522,6 +10522,14 @@ div.margin {
   grid-column-end: 5;
   grid-row-start: 5;
   grid-row-end: 5;
+}
+
+.grid45-45{
+  grid-column-start: 4;
+  grid-column-end: 6;
+  grid-row-start: 4;
+  grid-row-end: 6;
+  margin-right: 30px;
 }
 
 .corner-logo{

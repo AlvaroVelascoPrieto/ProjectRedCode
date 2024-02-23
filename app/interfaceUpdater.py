@@ -95,6 +95,10 @@ PilaCurrentRL = ['0000000000000000' for i in range(50)]
 PilaCurrentRR = ['0000000000000000' for i in range(50)]
 PilaYawRate = ['0000000000000000' for i in range(50)]
 PilaYawRateRef = ['0000000000000000' for i in range(50)]
+PilaPowerFL = ['0000000000000000' for i in range(50)]
+PilaPowerFR = ['0000000000000000' for i in range(50)]
+PilaPowerRL = ['0000000000000000' for i in range(50)]
+PilaPowerRR = ['0000000000000000' for i in range(50)]
 
 def updateFigure1(data):
     PilaPedalera.pop(0)
@@ -388,6 +392,56 @@ def powerAndDCVoltage(data1, data2, data3, data4):
     power3 = int(data3[6:8] + data3[4:6], base=16) * 16
     power4 = int(data4[6:8] + data4[4:6], base=16) * 16
     return temp1, temp2, temp3, temp4, power1, power2, power3, power4
+
+def powerFigure(data1, data2, data3, data4):
+    PilaPowerFL.pop(0)
+    PilaPowerFL.insert(49, data1)
+    PilaPowerFR.pop(0)
+    PilaPowerFR.insert(49, data2)
+    PilaPowerRL.pop(0)
+    PilaPowerRL.insert(49, data3)
+    PilaPowerRR.pop(0)
+    PilaPowerRR.insert(49, data4)
+    powerFL = [int(i[6:8] + i[4:6], base=16) * 16 for i in PilaPowerFL]
+    powerFR = [int(i[6:8] + i[4:6], base=16) * 16 for i in PilaPowerFR]
+    powerRL = [int(i[6:8] + i[4:6], base=16) * 16 for i in PilaPowerRL]
+    powerRR = [int(i[6:8] + i[4:6], base=16) * 16 for i in PilaPowerRR]
+    datosX = [i for i in range(len(powerFL))]
+    figure_1 = go.Figure(
+
+        data = [go.Scatter(
+            x = datosX,
+            y = powerFL,
+            mode = 'lines',
+            name='Power FL',
+            marker = dict(color = 'green')
+        ),
+            go.Scatter(
+                x=datosX,
+                y=powerFR,
+                mode='lines',
+                name='Power FR',
+                marker=dict(color='red')
+            ),
+            go.Scatter(
+                x=datosX,
+                y=powerRL,
+                mode='lines',
+                name='Power RL',
+                marker=dict(color='blue')
+            ),
+            go.Scatter(
+                x=datosX,
+                y=powerRR,
+                mode='lines',
+                name='Power RR',
+                marker=dict(color='purple')
+            ),
+        ]
+    )
+
+    figure_1['layout']['yaxis'] = {'range': (0, 20000)}
+    return figure_1
 
 
 def speedAndYawRateRef(data):

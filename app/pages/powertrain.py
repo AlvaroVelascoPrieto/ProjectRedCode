@@ -498,25 +498,15 @@ layout=html.Div(id='element-to-hide', style={'display':'none'}),\
                                     className="grid4-33"
                                 ),
                                 html.Div(
-                                children=daq.Indicator(
-                                            id='ams3',
-                                            label={'label':"AMS", 'style':{'font-weight': 'bold','font-size':'20px'}},
-                                            color="red",
-                                            size=45,
-                                            value=True
-                                        ),
-                                className="grid4-44"
+                                children=dcc.Graph(
+                                        id="powers",
+                                        figure={'layout':{"autosize":False}},
+                                        style={'width': '100%', 'height':'100%', 'margin':{'l':'-500px','r':'0','b':'0','t':'0'}},
+                                        config={"responsive":True,"displayModeBar": False, "edits":{"titleText":False,"legendText":False, "annotationPosition":False,"colorbarTitleText":False},"displayModeBar":True},
+
+                                    ),
+                                className="grid45-45"
                                 ),
-                                html.Div(
-                                    children=daq.Indicator(
-                                                id='k33',
-                                                label={'label':"K3-", 'style':{'font-weight': 'bold','font-size':'20px'}},
-                                                color="green",
-                                                size=45,
-                                                value=True
-                                            ),
-                                    className="grid4-55"
-                                ), 
                                 html.Div(
                                     children=daq.Gauge(
                                     id='powerFR',
@@ -546,26 +536,6 @@ layout=html.Div(id='element-to-hide', style={'display':'none'}),\
                                     max=524272,
                                     ),
                                     className="grid5-33"
-                                ),
-                                html.Div(
-                                    children=daq.LEDDisplay(
-                                            id='totalVoltage3',
-                                            label={'label':"Estimated Voltage", 'style':{'font-weight': 'bold','font-size':'16px'}},
-                                            labelPosition='top',
-                                            value='0',
-                                            color="black"
-                                        ),
-                                    className="grid5-44"
-                                ),
-                                html.Div(
-                                    children=daq.LEDDisplay(
-                                            id='current3',
-                                            label={'label':"Output Current", 'style':{'font-weight': 'bold','font-size':'16px'}},
-                                            labelPosition='top',
-                                            value='0',
-                                            color="black"
-                                        ),
-                                    className="grid5-55"
                                 ),
                         ],
                         className="cornerWrapperMulti"
@@ -627,13 +597,13 @@ layout=html.Div(id='element-to-hide', style={'display':'none'}),\
     )
 
 @callback(
-    [Output('smAMS3', 'children'), Output('errorAMS3', 'children'), Output('modeAMS3', 'children'), Output('timedOutSlave3', 'children'), Output('cellMinVoltage3', 'value'), Output('cellMaxVoltage3', 'value'), Output('idCellMaxVoltage3', 'value'), Output('idCellMinVoltage3', 'value'), Output('cellMinTemp3', 'value'), Output('cellMaxTemp3', 'value'), Output('idCellMinTemp3', 'value'), Output('idCellMaxTemp3', 'value'), Output('totalVoltage3', 'value'), Output('current3', 'value'), Output('k13', 'color'), Output('k23', 'color'), Output('k33', 'color'), Output('cellMinVoltage3', 'color'), Output('cellMaxTemp3', 'color'), Output('imd3', 'color'), Output('ams3', 'color'), ],
+    [Output('smAMS3', 'children'), Output('errorAMS3', 'children'), Output('modeAMS3', 'children'), Output('timedOutSlave3', 'children'), Output('cellMinVoltage3', 'value'), Output('cellMaxVoltage3', 'value'), Output('idCellMaxVoltage3', 'value'), Output('idCellMinVoltage3', 'value'), Output('cellMinTemp3', 'value'), Output('cellMaxTemp3', 'value'), Output('idCellMinTemp3', 'value'), Output('idCellMaxTemp3', 'value'), Output('totalVoltage3', 'value'), Output('current3', 'value'), Output('k13', 'color'), Output('k23', 'color'), Output('k33', 'color'), Output('cellMinVoltage3', 'color'), Output('cellMaxTemp3', 'color'), Output('imd3', 'color'), Output('ams3', 'color'), Output('powers', 'figure')],
     Input('int-component-el', 'n_intervals'),
 )
 def acutaliza(N):
     #begining = time.time()
     data = get_data()
-    vel = random.randint(0,10)
+    #vel = random.randint(0,10)
     pedalera = interfaceUpdater.updatePedaleraMulti(redisConector.get_value('0001'))
     #end = time.time()
     #print(end-begining)
@@ -641,4 +611,12 @@ def acutaliza(N):
     ###MASTER###
     totalVoltage, minVoltage, idMinVoltage, voltageColor, maxVoltage, idMaxVoltage, minTemp, idMinTemp, maxTemp, idMaxTemp, colorTemp = interfaceUpdater.updateVoltages(redisConector.get_value('0311'))
     k1, k2, k3, smAMS, errorAMS, imd, amsMode, timedOutSlvave, current, amsLed = interfaceUpdater.contactorFeedbackAndAMSState(redisConector.get_value('0310'))
-    return smAMS, errorAMS, amsMode, timedOutSlvave, minVoltage, maxVoltage, idMaxVoltage, idMinVoltage, minTemp, maxTemp, idMinTemp, idMaxTemp, totalVoltage, current, k1, k2, k3, voltageColor, colorTemp, imd, amsLed
+
+    ##INVERTERS&MOTORS##
+    speedFL, speedFR, speedRL, speedRR = interfaceUpdater.motorRPM(redisConector.get_value('024f'), redisConector.get_value('034f'), redisConector.get_value('024e'), redisConector.get_value('034e'))
+    tempFL, tempFR, tempRL, tempRR, powerFL, powerFR, powerRL, powerRR = interfaceUpdater.powerAndDCVoltage(redisConector.get_value('028f'), redisConector.get_value('038f'), redisConector.get_value('028e'), redisConector.get_value('038e'))
+    powerFigure = interfaceUpdater.powerFigure(redisConector.get_value('028f'), redisConector.get_value('038f'), redisConector.get_value('028e'), redisConector.get_value('038e'))
+
+
+
+    return smAMS, errorAMS, amsMode, timedOutSlvave, minVoltage, maxVoltage, idMaxVoltage, idMinVoltage, minTemp, maxTemp, idMinTemp, idMaxTemp, totalVoltage, current, k1, k2, k3, voltageColor, colorTemp, imd, amsLed, powerFigure

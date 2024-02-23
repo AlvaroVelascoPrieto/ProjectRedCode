@@ -447,16 +447,6 @@ layout=html.Div(id='element-to-hide', style={'display':'none'}),\
                                 ],
                                 className="box10"
                             ),
-                            html.Div(
-                                children=daq.LEDDisplay(
-                                        id='vel',
-                                        label={'label':"Speed", 'style':{'font-weight': 'bold','font-size':'16px'}},
-                                        labelPosition='top',
-                                        value='0',
-                                        color="black"
-                                    ),
-                                className="box11"
-                            ),
                         ],
                         className="cornerWrapper"
                     )
@@ -504,7 +494,7 @@ layout=html.Div(id='element-to-hide', style={'display':'none'}),\
     )
 
 @callback(
-    [Output("vel", "value"),Output("pedalera", "figure"), Output('smAMS2', 'children'), Output('errorAMS2', 'children'), Output('modeAMS2', 'children'), Output('timedOutSlave2', 'children'), Output('cellMinVoltage2', 'value'), Output('cellMaxVoltage2', 'value'), Output('idCellMaxVoltage2', 'value'), Output('idCellMinVoltage2', 'value'), Output('cellMinTemp2', 'value'), Output('cellMaxTemp2', 'value'), Output('idCellMinTemp2', 'value'), Output('idCellMaxTemp2', 'value'), Output('totalVoltage2', 'value'), Output('current2', 'value'), Output('k12', 'color'), Output('k22', 'color'), Output('k32', 'color'), Output('cellMinVoltage2', 'color'), Output('cellMaxTemp2', 'color'), Output('imd2', 'color'), Output('ams2', 'color'), ],
+    [Output("pedalera", "figure"), Output('smAMS2', 'children'), Output('errorAMS2', 'children'), Output('modeAMS2', 'children'), Output('timedOutSlave2', 'children'), Output('cellMinVoltage2', 'value'), Output('cellMaxVoltage2', 'value'), Output('idCellMaxVoltage2', 'value'), Output('idCellMinVoltage2', 'value'), Output('cellMinTemp2', 'value'), Output('cellMaxTemp2', 'value'), Output('idCellMinTemp2', 'value'), Output('idCellMaxTemp2', 'value'), Output('totalVoltage2', 'value'), Output('current2', 'value'), Output('k12', 'color'), Output('k22', 'color'), Output('k32', 'color'), Output('cellMinVoltage2', 'color'), Output('cellMaxTemp2', 'color'), Output('imd2', 'color'), Output('ams2', 'color'), ],
     Input('int-component-el', 'n_intervals'),
 )
 def acutaliza(N):
