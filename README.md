@@ -1,5 +1,5 @@
-## Project Red Code
-Python (Dash) + Gunicorn on Docker Compose. 
+# Project Red Code
+Python (Dash) + Redis + Gunicorn on Docker Compose. 
 
 Alvaro Velasco Prieto
 
@@ -44,7 +44,7 @@ $ sudo apt install docker-compose
 
 Para obtener los archivos del directorio del proyecto se ha de emplear el siguiente comando:
 ```bash
-$git clone https://github.com/AlvaroVelascoPrieto/ProjectRedCode
+$ git clone https://github.com/AlvaroVelascoPrieto/ProjectRedCode
 ```
 
 Una vez obtenidos los archivos del repositorio, accedemos a la carpeta y construimos la imagen web mediante el siguiente comando:
