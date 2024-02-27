@@ -602,7 +602,7 @@ layout=html.Div(id='element-to-hide', style={'display':'none'}),\
 )
 def acutaliza(N):
     #begining = time.time()
-    data = get_data()
+    #data = get_data()
     #vel = random.randint(0,10)
     pedalera = interfaceUpdater.updatePedaleraMulti(redisConector.get_value('0001'))
     #end = time.time()

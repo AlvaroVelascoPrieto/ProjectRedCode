@@ -43,12 +43,34 @@ dictionary = {
     "020f": "0000000000000000",
     "040f": "0000000000000000",
     "0122": "0000000000000000",
-    "0181": "0000000000000000"
+    "0181": "0000000000000000",
+    "0101": "0000000000000000",
+    "0102": "0000000000000000",
+    "0103": "0000000000000000",
+    "0104": "0000000000000000",
+    "0105": "0000000000000000",
+    "0106": "0000000000000000",
+    "0107": "0000000000000000",
+    "0108": "0000000000000000",
+    "0109": "0000000000000000",
+    "010a": "0000000000000000",
+    "010b": "0000000000000000",
+    "1101": "0000000000000000",
+    "1102": "0000000000000000",
+    "1103": "0000000000000000",
+    "1104": "0000000000000000",
+    "1105": "0000000000000000",
+    "1106": "0000000000000000",
+    "1107": "0000000000000000",
+    "1108": "0000000000000000",
+    "1109": "0000000000000000",
+    "110a": "0000000000000000",
+    "110b": "0000000000000000",
 }
 
 for i in dictionary:
     client.set(i, dictionary[i])
-
+"""
 while True:
     #empiece=time.time()
     #print('Vamo')
@@ -84,3 +106,22 @@ while True:
     with open("data.json", "w") as outfile:
         json.dump(dictionary, outfile)
     #fin = time.time()
+"""
+# send_msg_pyt
+from canlib import canlib, Frame
+
+# instead of opening the two channels and closing them one by one, we will use a
+# with statement. Using the with statement to open one or more channels with
+# canlib.openChannel(i) as ch_x. Within this with statement we will write the
+# rest of the code.
+ch_a = canlib.openChannel(0) 
+
+ch_a.setBusParams(canlib.canBITRATE_500K)   
+ch_a.busOn()
+
+
+while True:
+    msg = ch_a.read(timeout=500)
+    print(msg)
+    with open("data.json", "w") as outfile:
+        json.dump(dictionary, outfile)

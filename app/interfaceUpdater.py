@@ -127,6 +127,78 @@ def updateFigure1(data):
     figure_1['layout']['yaxis'] = {'range': (0, 250)}
     return figure_1
 
+def updateVoltajes(data1, data2, data3, data4, data5, data6, data7, data8, data9, data10, data11, data12, data13, data14, data15, data16, data17, data18, data19, data20, data21, data22, data23, data24):
+    voltajes = ''
+    voltajes += data1[0:14]
+    voltajes += data13[0:10]
+    voltajes += data2[0:14]
+    voltajes += data14[0:10]
+    voltajes += data3[0:14]
+    voltajes += data15[0:10]
+    voltajes += data4[0:14]
+    voltajes += data16[0:10]
+    voltajes += data5[0:14]
+    voltajes += data17[0:10]
+    voltajes += data6[0:14]
+    voltajes += data18[0:10]
+    voltajes += data7[0:14]
+    voltajes += data19[0:10]
+    voltajes += data8[0:14]
+    voltajes += data20[0:10]
+    voltajes += data9[0:14]
+    voltajes += data21[0:10]
+    voltajes += data10[0:14]
+    voltajes += data22[0:10]
+    voltajes += data11[0:14]
+    voltajes += data23[0:10]
+    voltajes += data12[0:14]
+    voltajes += data24[0:10]
+    voltajes2 = []
+    for i in range(144):
+        voltajes2.append(round(voltajes[2*i:2*i+2]/51.0,2))
+  
+    datosX = [i for i in range(len(voltajes2))]
+    figure_1 = go.Figure(
+
+        data = [go.Scatter(
+            x = datosX,
+            y = voltajes2,
+            mode = 'lines',
+            name='voltajes',
+            marker = dict(color = 'green')
+        ),
+            
+        ]
+    )
+    figure_1['layout']['yaxis'] = {'range': (0, 4)}
+    return figure_1
+
+
+
+
+def updateFigure2(data):
+    datosY = []
+    datosY.append(int(data[0:2], base=16))
+    datosY.append(int(data[3:5], base=16))
+    datosX = [i for i in range(len(datosY))]
+
+    figure_2 = {
+        "data": [
+            {
+                "x": datosX,
+                "y": datosY,
+                "type": "lines",
+                "hovertemplate": "%{y:.2f}<extra></extra>",
+            },
+        ],
+        "layout": {
+            "xaxis": {"fixedrange": True},
+            "yaxis": {"range":(0,200)},
+            "colorway": ["#e30202", "#302f2f", "#000000", "#15ff00", "#0062ff", "#ff00f7"],
+        },
+    }
+    return figure_2
+
 def updatePedaleraMulti(data):
     PilaPedalera.pop(0)
     PilaPedalera.insert(49, data)
@@ -169,32 +241,6 @@ def updatePedaleraMulti(data):
     )
     figure_1['layout']['yaxis'] = {'range': (0, 250)}
     return figure_1
-
-
-
-
-def updateFigure2(data):
-    datosY = []
-    datosY.append(int(data[0:2], base=16))
-    datosY.append(int(data[3:5], base=16))
-    datosX = [i for i in range(len(datosY))]
-
-    figure_2 = {
-        "data": [
-            {
-                "x": datosX,
-                "y": datosY,
-                "type": "lines",
-                "hovertemplate": "%{y:.2f}<extra></extra>",
-            },
-        ],
-        "layout": {
-            "xaxis": {"fixedrange": True},
-            "yaxis": {"range":(0,200)},
-            "colorway": ["#e30202", "#302f2f", "#000000", "#15ff00", "#0062ff", "#ff00f7"],
-        },
-    }
-    return figure_2
 
 
 
