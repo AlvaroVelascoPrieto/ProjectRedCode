@@ -70,7 +70,6 @@ dictionary = {
 
 for i in dictionary:
     client.set(i, dictionary[i])
-"""
 while True:
     #empiece=time.time()
     #print('Vamo')
@@ -106,14 +105,8 @@ while True:
     with open("data.json", "w") as outfile:
         json.dump(dictionary, outfile)
     #fin = time.time()
+#for reading with KVaser 
 """
-# send_msg_pyt
-from canlib import canlib, Frame
-
-# instead of opening the two channels and closing them one by one, we will use a
-# with statement. Using the with statement to open one or more channels with
-# canlib.openChannel(i) as ch_x. Within this with statement we will write the
-# rest of the code.
 ch_a = canlib.openChannel(0) 
 
 ch_a.setBusParams(canlib.canBITRATE_500K)   
@@ -122,6 +115,18 @@ ch_a.busOn()
 
 while True:
     msg = ch_a.read(timeout=500)
-    print(msg)
+    id = str(hex(int(msg.id))).split("x")[-1].zfill(4)
+    msg= str(bytes(msg.data)).split("\\x")[1:9]
+    datos = ''
+    for mens in msg:
+        datos += mens[0:2]
+    msg = datos.ljust(16,'0')
+    if id!='0310' and id!='0311' and msg[-2:]=="01":
+        id = "1" + id[1:]
+    #print(id)
+    #print(msg)
+    dictionary.update({str(id): msg})
+    print(dictionary)
     with open("data.json", "w") as outfile:
         json.dump(dictionary, outfile)
+"""
