@@ -7,8 +7,6 @@ import redis
 # connect to redis
 client = redis.Redis(host='redis', port=6379, health_check_interval=30, decode_responses=True)
 
-print("here")
-
 BUFFERSIZE = 128
 LOCALIP = ''
 LOCALPORT = 3002
@@ -67,27 +65,24 @@ dictionary = {
     "110a": "0000000000000000",
     "110b": "0000000000000000",
 }
-
 for i in dictionary:
     client.set(i, dictionary[i])
+print('Comensamo')
 while True:
     #empiece=time.time()
     #print('Vamo')
     try:
-        #data,addr = sock.recvfrom(BUFFERSIZE)
+        data,addr = sock.recvfrom(BUFFERSIZE)
         #print(data)
         #sock.close()
-        #msg = str(data.hex())
+        msg = str(data.hex())
 
-        #id = msg[0:4]
-        int = random.randint(0, 4)
-        id = ['0310', '0001', '00a2', '00f1', '0311']
-        id = id[int]
-        data = str(random.randint(100000, 999999)) + '0000000000'
+        id = msg[0:4]
+        #id = '0001'
+        #data = str(random.randint(10, 99)) + '00000000000000'
         # set a key
-        client.set(id,data)
-        #client.set(str(id), str(''.join(map(str, msg[4:]))).removeprefix('c2'))
-        time.sleep(0.05)
+        client.set(id, str(''.join(map(str, msg[4:]))).removeprefix('c2'))
+        #print(data)
         #dictionary.update({str(id) : str(''.join(map(str, msg[4:]))).removeprefix('c2')})
         #print(dictionary)
         #print(id)
@@ -96,37 +91,12 @@ while True:
     except AttributeError:
         pass
     except BlockingIOError:
-        #print("No rec")
         pass
     except ValueError:
         pass
     except IndexError:
         pass
-    with open("data.json", "w") as outfile:
-        json.dump(dictionary, outfile)
+    #with open("data.json", "w") as outfile:
+        #json.dump(dictionary, outfile)
     #fin = time.time()
-#for reading with KVaser 
-"""
-ch_a = canlib.openChannel(0) 
-
-ch_a.setBusParams(canlib.canBITRATE_500K)   
-ch_a.busOn()
-
-
-while True:
-    msg = ch_a.read(timeout=500)
-    id = str(hex(int(msg.id))).split("x")[-1].zfill(4)
-    msg= str(bytes(msg.data)).split("\\x")[1:9]
-    datos = ''
-    for mens in msg:
-        datos += mens[0:2]
-    msg = datos.ljust(16,'0')
-    if id!='0310' and id!='0311' and msg[-2:]=="01":
-        id = "1" + id[1:]
-    #print(id)
-    #print(msg)
-    dictionary.update({str(id): msg})
-    print(dictionary)
-    with open("data.json", "w") as outfile:
-        json.dump(dictionary, outfile)
-"""
+    #print(fin-empiece)

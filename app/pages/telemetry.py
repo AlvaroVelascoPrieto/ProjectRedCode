@@ -842,8 +842,6 @@ def acutaliza(N):
     steering = interfaceUpdater.updateSteeringWheel(redisConector.get_value('0181'))
     power, torqueValue = interfaceUpdater.dashData(redisConector.get_value('00a2'))
     tvRunning = interfaceUpdater.tvRunning(redisConector.get_value('00f0'))
-    carState = redisConector.get_value('0001')
-    safetyFront = "seldas"
     #print("aaaa")
     #print(carState)
     #end = time.time()
