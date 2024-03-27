@@ -347,7 +347,7 @@ def safetyFront(data):
 
     return frontSafetyState
 
-def safety(data):
+def safety(data, data1):
     state = str(data[12:14][0:2])
     safety = STATES.get(state)
     imd = 'red' if str(data[8:10][0:2])=='01' else 'grey'
@@ -358,6 +358,8 @@ def safety(data):
         carState = CARSTATES.get(carState)
     except KeyError:
         carState = "TETAS"
+    if safety == 'Safe 4 Accu' and int(data1[4:6][0:2], base=16)==1:
+        safety = 'Safe 4 Accu - INTERLOCK'
 
     return safety, imd, ams, plausibility, carState
 

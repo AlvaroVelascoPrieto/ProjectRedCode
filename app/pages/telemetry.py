@@ -830,7 +830,7 @@ def acutaliza(N):
     figura1 = interfaceUpdater.updateFigure1(redisConector.get_value('0001'))
 
     safetyFront = interfaceUpdater.safetyFront(redisConector.get_value('00a2'))
-    safetyValue, imd, ams, plausibility, carState = interfaceUpdater.safety(redisConector.get_value('00f1'))
+    safetyValue, imd, ams, plausibility, carState = interfaceUpdater.safety(redisConector.get_value('00f1'), redisConector.get_value('0310'))
 
     sw1, ls1, sw2, ls2, sw3, ls3, sw4, ls4 = interfaceUpdater.motorData(redisConector.get_value('01cf'), redisConector.get_value('02cf'), redisConector.get_value('01ce'), redisConector.get_value('02ce'))
     speedFL, speedFR, speedRL, speedRR = interfaceUpdater.motorRPM(redisConector.get_value('024f'), redisConector.get_value('034f'), redisConector.get_value('024e'), redisConector.get_value('034e'))
