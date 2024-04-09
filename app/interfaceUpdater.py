@@ -327,7 +327,10 @@ def safetyFront(data):
     #2-OK->63,Inertia->60,seta_cockpit->62,BOTS->56,
     #k3
     #print(data)
+    #63ok
+
     safe=int(data[2:4][0:2],base=16)
+    print("ok")
     print(safe)
     if safe==63:
         frontSafetyState='Front ok'

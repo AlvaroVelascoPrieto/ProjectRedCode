@@ -52,7 +52,7 @@ layout = html.Div(id='element-to-hide', style={'display':'none'}),\
             children=[
             dcc.Interval(
                 id='int-component',
-                interval=325, # in milliseconds
+                interval=525, # in milliseconds
                 n_intervals=0
             ),
         ],

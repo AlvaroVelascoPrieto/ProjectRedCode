@@ -1,13 +1,11 @@
-FROM rust:1.70.0-slim-bullseye
+FROM python:3.9
 
-COPY ./recepcion/main.rs /recepcion/src/main.rs
-COPY ./recepcion/Cargo.toml /recepcion/Cargo.toml
+ENV DASH_DEBUG_MODE True
+COPY ./recepcion/requirements.txt /recepcion/requirements.txt
+COPY ./recepcion/recepcion.py /recepcion/recepcion.py
 WORKDIR /recepcion
-
+RUN set -ex && \
+    pip install -r requirements.txt
 EXPOSE 8051
 EXPOSE 3002
-
-RUN cargo build --release
-
-# Run the binary
-CMD ["./target/release/recepcion"]
+CMD ["python", "recepcion.py"]
