@@ -1,72 +1,55 @@
-# Project Red Code
+# FSB 2024 - Remote Data Analisys and Aquisition (Telemetry)
 Python (Dash) + Redis + Gunicorn on Docker Compose. 
 
 Alvaro Velasco Prieto
 
 ## DOCS
-Documentacion pendiente
+Documentation in progress... (Available 31/07/2024)
 
-## Requisitos
-
-Se trata de una aplicación web para la cual necesitará un navegador instalado.
-Si no dispone de ello, para instalar Google Chrome emplearemos los siguientes comandos:
-Primero actualizamos el sistema:
+## Deployment
+In order to deploy this web app you will use Docker & Docker Compose. To install these tools type the following commands:
+Update your system:
 ```bash
 $ sudo apt-get update
 ```
-
-Descargamos el paquete para la instalación de chrome:
-```bash
-$ wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
-```
-
-Instalamos el paquete:
-```bash
-$ sudo apt install ./google-chrome-stable_current_amd64.deb
-```
-
-
-Para hacer el despliegue de la página usaremos Docker, si no dispone de docker en su sistema instalelo mediante los siguientes comandos:
-Primero actualizamos el sistema:
-```bash
-$ sudo apt-get update
-```
-E instalamos docker:
+Install Docker:
 ```bash
 $ sudo apt-get install docker-ce docker-ce-cli containerd.io
 ```
-Además, instalamos docker-compose:
+Install docker-compose:
 ```bash
 $ sudo apt install docker-compose
 ```
 
-## Instrucciones de uso
-
-Para obtener los archivos del directorio del proyecto se ha de emplear el siguiente comando:
+To obtain all files in the directory use the following command:
 ```bash
 $ git clone https://github.com/AlvaroVelascoPrieto/ProjectRedCode
 ```
 
-Una vez obtenidos los archivos del repositorio, accedemos a la carpeta y construimos la imagen web mediante el siguiente comando:
-#Modo development:
+Once you have downloaded the files from the repository, access the folder and build the web image with the following command:
+
+Development mode:
+
 ```bash
 $ sudo docker build -f app/Dockerfile.dev -t app . 
 ```
-Modo deployment
+Deployment mode
 ```bash
 
 $ sudo docker build -f app/Dockerfile -t app . 
 ```
+
+Now build the data aquisition image:
 ```bash
 
 $ sudo docker build -f recepcion/Dockerfile -t app2 . 
 ```
 
 
-Tras esto, desplegamos los servicios mediante:
+After building the images you can deploy all the services using docker-compose:
 ```bash
 $ sudo docker compose up 
 ```
 
-Una vez hecho esto la aplicación web estará corriendo en el puerto 8050. (http://localhost:8050/).
+Once this process is complete the app wil be running locally on port 8050. (http://localhost:8050/).
 
