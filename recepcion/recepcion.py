@@ -7,12 +7,12 @@ import redis
 # connect to redis
 client = redis.Redis(host='redis', port=6379, health_check_interval=30, decode_responses=True)
 
-BUFFERSIZE = 128
-LOCALIP = ''
-LOCALPORT = 3002
-UDP_REFRESH_TIME = 0.005
-sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-sock.bind((LOCALIP, LOCALPORT))  # Le indico que reciba de todos y en el puerto definido.
+import socket
+
+sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM, socket.IPPROTO_UDP) # UDP
+
+sock.bind(("", 37020))
+
 sock.setblocking(0)  # para que no se bloquee aunque no reciba por el socket
 
 dictionary = {
@@ -72,16 +72,17 @@ while True:
     #empiece=time.time()
     #print('Vamo')
     try:
-        data,addr = sock.recvfrom(BUFFERSIZE)
-        #print(data)
+        data,addr = sock.recvfrom(1024)
+        
         #sock.close()
-        msg = str(data.hex())
-
+        msg = str(data)[2:-1].ljust(20,'0')
+        #print(msg)
         id = msg[0:4]
         #id = '0001'
         #data = str(random.randint(10, 99)) + '00000000000000'
         # set a key
-        client.set(id, str(''.join(map(str, msg[4:]))).removeprefix('c2'))
+        #print(msg)
+        client.set(id, str(''.join(map(str, msg[4:]))).removeprefix('c2').ljust(20,'0'))
         #print(data)
         #dictionary.update({str(id) : str(''.join(map(str, msg[4:]))).removeprefix('c2')})
         #print(dictionary)

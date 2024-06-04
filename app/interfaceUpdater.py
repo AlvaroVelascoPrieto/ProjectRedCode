@@ -39,12 +39,7 @@ statuses = [
 
 
 STATES = {'00' : 'Safe 1',
-    '01' : 'Safe 2 Front',
-    '02' : 'Safe 2 BOTS',
-    '03' : 'Safe 2 FL',
-    '04' : 'Safe 2 FR',
-    '05' : 'Safe 2 Cockpit',
-    '06' : 'Safe 2 Inertia',
+    '03' : 'Safe 2 Front',
     '07' : 'Safe 3 Mainhoop',
     '08' : 'Safe 4 Accu',
     '09' : 'Safe 5 RL',
@@ -61,7 +56,8 @@ CARSTATES = {
     '02' : 'Precharge',
     '03' : 'Energized',
     '04' : 'Running',
-    '05' : 'Error'
+    '05' : 'Denergized',
+    '06' : 'Error'
 }
 
 AMSSTATES = {
@@ -78,12 +74,12 @@ AMSSTATES = {
 AMSERRORS = {
     '0' : 'OK',
     '1' : 'VLoad',
-    '2' : 'IMD',
-    '4' : 'ECU Timeout',
-    '8' : 'Current',
-    '16' : 'Error contactores',
-    '32' : 'Voltaje',
-    '64' : 'Temperatura',
+    '2' : 'Current',
+    '4' : 'IMD',
+    '8' : 'Contactors',
+    '16' : 'Voltaje',
+    '32' : 'Temperature',
+    '64' : 'ECU Timeout',
     '128' : 'Slaves Timeout'
 }
 
@@ -103,7 +99,7 @@ PilaPowerRR = ['0000000000000000' for i in range(50)]
 def updateFigure1(data):
     PilaPedalera.pop(0)
     PilaPedalera.insert(49, data)
-    datosAcc = [int(i[10:12],base=16) for i in PilaPedalera]
+    datosAcc = [int(i[0:2],base=16) for i in PilaPedalera]
     datosBrk = [int(i[6:8],base=16) for i in PilaPedalera]
     datosX = [i for i in range(len(datosAcc))]
     figure_1 = go.Figure(
@@ -130,9 +126,9 @@ def updateFigure1(data):
 def updatePedaleraMulti(data):
     PilaPedalera.pop(0)
     PilaPedalera.insert(49, data)
-    datosAcc1 = [int(i[10:12],base=16) for i in PilaPedalera]
-    datosAcc2 = [int(i[12:14],base=16) for i in PilaPedalera]
-    datosAcc3 = [int(i[14:16],base=16) for i in PilaPedalera]
+    datosAcc1 = [int(i[0:2],base=16) for i in PilaPedalera]
+    datosAcc2 = [int(i[2:4],base=16) for i in PilaPedalera]
+    datosAcc3 = [int(i[4:6],base=16) for i in PilaPedalera]
     datosBrk = [int(i[6:8],base=16) for i in PilaPedalera]
     datosX = [i for i in range(len(datosAcc1))]
     figure_1 = go.Figure(
@@ -167,7 +163,7 @@ def updatePedaleraMulti(data):
             ),
         ]
     )
-    figure_1['layout']['yaxis'] = {'range': (0, 250)}
+    figure_1['layout']['yaxis'] = {'range': (0, 255)}
     return figure_1
 
 
@@ -246,6 +242,10 @@ def currents(data1, data2, data3, data4):
     figure_1['layout']['yaxis'] = {'range': (-200, 200)}
     return figure_1
 
+def getTotalPower(data):
+    power = int(data[0:2][0:2] + data[2:4][0:2] + data[4:6][0:2] + data[6:8][0:2],base=16)
+    return power
+
 
 def updateYawRate(data1, data2):
     PilaYawRate.pop(0)
@@ -276,6 +276,7 @@ def updateYawRate(data1, data2):
     return figure_1
 
 def updateVoltages(data):
+    print(data)
     minVoltage = round(float(int(data[0:2], base=16) / 51.0),3)
     totalVoltage = round(minVoltage*144,1)
     idMinVoltage = int(data[2:4][0:2], base=16)
@@ -328,10 +329,8 @@ def safetyFront(data):
     #k3
     #print(data)
     #63ok
-
     safe=int(data[2:4][0:2],base=16)
-    print("ok")
-    print(safe)
+
     if safe==63:
         frontSafetyState='Front ok'
     elif safe==62:
@@ -344,11 +343,26 @@ def safetyFront(data):
         frontSafetyState='Safe FR'
     elif safe==32:
         frontSafetyState='Safe FL'
+    elif safe==0:
+        frontSafetyState='Front OK'
     else:
         frontSafetyState='Safe 2'
 
 
     return frontSafetyState
+
+def dashData2(data):
+    switches = bin(int(data[0:2],base=16)).zfill(8)
+    loadON = "green" if str(switches)[2]=="1" else "grey"
+    start = "green" if str(switches)[3]=="1" else "grey"
+    powerPlus = "green" if str(switches)[4]=="1" else "grey"
+    tvPlus = "green" if str(switches)[5]=="1" else "grey"
+    powerMinus = "green" if str(switches)[6]=="1" else "grey"
+    tvMinus = "green" if str(switches)[7]=="1" else "grey"
+    state = data[10:12][0:2]
+    prevState = data[12:14][0:2]
+
+    return loadON, start, powerPlus, tvPlus, powerMinus, tvMinus, state, prevState
 
 def safety(data, data1):
     state = str(data[12:14][0:2])
@@ -386,6 +400,10 @@ def motorRPM(data1, data2, data3, data4):
 
 
 def powerAndDCVoltage(data1, data2, data3, data4):
+    print(data1)
+    print(data2)
+    print(data3)
+    print(data4)
     #Aviso 60
     #Max 100
     temp1 = int(data1[2:4] + data1[0:2], base=16) * 0.0625
@@ -469,7 +487,7 @@ def updateSteeringWheel(data1):
 
 
 def dashData(data):
-    power = int(data[8:10], base=16)
+    power = int(data[10:12], base=16)
     tvValue = int(data[6:8], base=16)
     return power, tvValue
 

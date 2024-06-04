@@ -377,78 +377,139 @@ layout=html.Div(id='element-to-hide', style={'display':'none'}),\
                         children=[
                             html.Div(
                                 children=html.Img(src="../assets/dash.jpeg", className="pedalbox-logo"),
-                                className="box1"
+                                className="grid1-1"
                             ),
                             html.Div(
                                 children="Dash",
-                                className="box2"
+                                className="grid25-1"
                             ),
                             html.Div(
-                                children=[html.H5('State Machine',
+                                children=[html.H5('State Machine State',
                                         style={'font-weight': 'bold','font-size':'16px'}
                                         ),
-                                        html.H5(
-                                        id='smAMS',
+                                        html.H5('Waiting for data',
+                                        id='dashSM',
                                         style={'font-size':'26px'}
                                         ),
-                                        html.Br(),
-                                        html.Br(),
-                                        html.H5('Previous State',
+                                ],className="grid1-22"
+                            ),
+                            html.Div(                                        
+                                children=[html.H5('Previous State',
                                         style={'font-weight': 'bold','font-size':'16px'}
                                         ),
-                                        html.H5(
-                                        id='errorAMS',
+                                        html.H5('Waiting for data',
+                                        id='dashPrevSM',
                                         style={'font-size':'26px'}
                                         ),
                                 ],
-                                className="box4"
+                                className="grid1-33"
+                            ),
+                            html.Div(
+                                children=[html.H5('Safe OK',
+                                        style={'font-weight': 'bold','font-size':'16px'}
+                                        ),
+                                        html.H5('Waiting for data',
+                                        id='error2',
+                                        style={'font-size':'26px'}
+                                        ),
+                                ],
+                                className="grid2-22"
+                            ),
+                            html.Div(
+                                children=[html.H5('Safety Front',
+                                        style={'font-weight': 'bold','font-size':'16px'}
+                                        ),
+                                        html.H5('Waiting for data',
+                                        id='safetyFront2',
+                                        style={'font-size':'26px'}
+                                        ),
+                                ],
+                                className="grid2-33"
+                                ),
+                            html.Div(
+                                children=daq.LEDDisplay(
+                                            id='power2',
+                                            label={'label':"POWER", 'style':{'font-weight': 'bold','font-size':'16px'}},
+                                            labelPosition='top',
+                                            value='0',
+                                            color="black"
+
+                                        ),
+                                className="grid3-22"
+                            ),
+                            html.Div(
+                                children=daq.LEDDisplay(
+                                            id='tv',
+                                            label={'label':"TV VALUE", 'style':{'font-weight': 'bold','font-size':'16px'}},
+                                            labelPosition='top',
+                                            value='0',
+                                            color="black"
+
+                                        ),
+                                className="grid3-33"
                             ),
                             html.Div(
                                 children=daq.Indicator(
-                                            id='Frontok',
-                                            label={'label':"FRONT OK", 'style':{'font-weight': 'bold','font-size':'20px'}},
+                                            id='loadon',
+                                            label={'label':"LOAD ON", 'style':{'font-weight': 'bold','font-size':'20px'}},
                                             color="green",
                                             size=45,
                                             value=True
                                         ),
-                                className="box5"
-                            ),
-                            
+                                className="grid1-44"
+                            ), 
                             html.Div(
-                                children=[html.H5('Safety',
-                                        style={'font-weight': 'bold','font-size':'16px'}
+                                children=daq.Indicator(
+                                            id='start',
+                                            label={'label':"START", 'style':{'font-weight': 'bold','font-size':'20px'}},
+                                            color="green",
+                                            size=45,
+                                            value=True
                                         ),
-                                        html.H5(
-                                        id='safetyLine',
-                                        style={'font-size':'26px'}
-                                        ),
-                                    ],
-                                className="box8"
-                            ),
+                                className="grid1-55"
+                            ), 
                             html.Div(
-                                children=[html.H5('Safety front',
-                                        style={'font-weight': 'bold','font-size':'16px'}
+                                children=daq.Indicator(
+                                            id='PW+',
+                                            label={'label':"PW+", 'style':{'font-weight': 'bold','font-size':'20px'}},
+                                            color="green",
+                                            size=45,
+                                            value=True
                                         ),
-                                        html.H5(
-                                        id='safetyFront',
-                                        style={'font-size':'26px'}
-                                    ),
-                                ],
-                                className="box9"
-                            ),
+                                className="grid2-44"
+                            ), 
                             html.Div(
-                                children=[html.H5('Button',
-                                        style={'font-weight': 'bold','font-size':'16px'}
+                                children=daq.Indicator(
+                                            id='PW-',
+                                            label={'label':"PW-", 'style':{'font-weight': 'bold','font-size':'20px'}},
+                                            color="green",
+                                            size=45,
+                                            value=True
                                         ),
-                                        html.H5(
-                                        id='carStatus',
-                                        style={'font-size':'26px'}
-                                    ),
-                                ],
-                                className="box10"
-                            ),
+                                className="grid2-55"
+                            ), 
+                            html.Div(
+                                children=daq.Indicator(
+                                            id='TV+',
+                                            label={'label':"TV+", 'style':{'font-weight': 'bold','font-size':'20px'}},
+                                            color="green",
+                                            size=45,
+                                            value=True
+                                        ),
+                                className="grid3-44"
+                            ), 
+                            html.Div(
+                                children=daq.Indicator(
+                                            id='TV-',
+                                            label={'label':"TV-", 'style':{'font-weight': 'bold','font-size':'20px'}},
+                                            color="green",
+                                            size=45,
+                                            value=True
+                                        ),
+                                className="grid3-55"
+                            ), 
                         ],
-                        className="cornerWrapper"
+                        className="cornerWrapperMulti"
                     )
                 ],
                 className="box"
@@ -494,18 +555,18 @@ layout=html.Div(id='element-to-hide', style={'display':'none'}),\
     )
 
 @callback(
-    [Output("pedalera", "figure"), Output('smAMS2', 'children'), Output('errorAMS2', 'children'), Output('modeAMS2', 'children'), Output('timedOutSlave2', 'children'), Output('cellMinVoltage2', 'value'), Output('cellMaxVoltage2', 'value'), Output('idCellMaxVoltage2', 'value'), Output('idCellMinVoltage2', 'value'), Output('cellMinTemp2', 'value'), Output('cellMaxTemp2', 'value'), Output('idCellMinTemp2', 'value'), Output('idCellMaxTemp2', 'value'), Output('totalVoltage2', 'value'), Output('current2', 'value'), Output('k12', 'color'), Output('k22', 'color'), Output('k32', 'color'), Output('cellMinVoltage2', 'color'), Output('cellMaxTemp2', 'color'), Output('imd2', 'color'), Output('ams2', 'color'), ],
+    [Output("pedalera", "figure"), Output('smAMS2', 'children'), Output('errorAMS2', 'children'), Output('modeAMS2', 'children'), Output('timedOutSlave2', 'children'), Output('cellMinVoltage2', 'value'), Output('cellMaxVoltage2', 'value'), Output('idCellMaxVoltage2', 'value'), Output('idCellMinVoltage2', 'value'), Output('cellMinTemp2', 'value'), Output('cellMaxTemp2', 'value'), Output('idCellMinTemp2', 'value'), Output('idCellMaxTemp2', 'value'), Output('totalVoltage2', 'value'), Output('current2', 'value'), Output('k12', 'color'), Output('k22', 'color'), Output('k32', 'color'), Output('cellMinVoltage2', 'color'), Output('cellMaxTemp2', 'color'), Output('imd2', 'color'), Output('ams2', 'color'), Output('dashSM', 'children'), Output('dashPrevSM', 'children'), Output('loadon', 'color'), Output('start', 'color'), Output('PW+', 'color'), Output('TV+', 'color'), Output('PW-', 'color'),Output('TV-', 'color'), Output('power2', 'value'), Output('tv', 'value'), Output('safetyFront2', 'children')],
     Input('int-component-el', 'n_intervals'),
 )
 def acutaliza(N):
-    #begining = time.time()
-    #data = get_data()
-    vel = random.randint(0,10)
+    ##PEDALERA##
     pedalera = interfaceUpdater.updatePedaleraMulti(redisConector.get_value('0001'))
-    #end = time.time()
-    #print(end-begining)
-
     ###MASTER###
     totalVoltage, minVoltage, idMinVoltage, voltageColor, maxVoltage, idMaxVoltage, minTemp, idMinTemp, maxTemp, idMaxTemp, colorTemp = interfaceUpdater.updateVoltages(redisConector.get_value('0311'))
     k1, k2, k3, smAMS, errorAMS, imd, amsMode, timedOutSlvave, current, amsLed = interfaceUpdater.contactorFeedbackAndAMSState(redisConector.get_value('0310'))
-    return pedalera, smAMS, errorAMS, amsMode, timedOutSlvave, minVoltage, maxVoltage, idMaxVoltage, idMinVoltage, minTemp, maxTemp, idMinTemp, idMaxTemp, totalVoltage, current, k1, k2, k3, voltageColor, colorTemp, imd, amsLed
+    
+    ##DASH##
+    safetyFront = interfaceUpdater.safetyFront(redisConector.get_value('00a2'))
+    loadON, start, powerPlus, tvPlus, powerMinus, tvMinus, state, prevState = interfaceUpdater.dashData2(redisConector.get_value('00a2'))
+    power, torqueValue = interfaceUpdater.dashData(redisConector.get_value('00a2'))
+    return pedalera, smAMS, errorAMS, amsMode, timedOutSlvave, minVoltage, maxVoltage, idMaxVoltage, idMinVoltage, minTemp, maxTemp, idMinTemp, idMaxTemp, totalVoltage, current, k1, k2, k3, voltageColor, colorTemp, imd, amsLed, state, prevState, loadON, start, powerPlus, tvPlus, powerMinus, tvMinus, power, torqueValue, safetyFront

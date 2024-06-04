@@ -7,5 +7,5 @@ WORKDIR /recepcion
 RUN set -ex && \
     pip install -r requirements.txt
 EXPOSE 8051
-EXPOSE 3002
+EXPOSE 37020
 CMD ["python", "recepcion.py"]

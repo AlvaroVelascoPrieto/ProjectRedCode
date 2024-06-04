@@ -219,17 +219,17 @@ layout = html.Div(id='element-to-hide', style={'display':'none'}),\
                                               size=45,
                                               value=True
                                             ),
-                                    className="box6"
+                                    className="box7"
                                 ),
                                 html.Div(
-                                    children=daq.Indicator(
-                                              id='Plausibility',
-                                              label={'label':"Plausibility", 'style':{'font-weight': 'bold','font-size':'20px'}},
-                                              color="yellow",
-                                              size=45,
-                                              value=True
-                                            ),
-                                    className="box7"
+                                    children=daq.LEDDisplay(
+                                            id='totalPower',
+                                            label={'label':"Total Power", 'style':{'font-weight': 'bold','font-size':'16px'}},
+                                            labelPosition='top',
+                                            value='0',
+                                            color="black"
+                                        ),
+                                    className="box6"
                                 ),
                                 html.Div(
                                     children=[html.H5('Safety',
@@ -262,7 +262,7 @@ layout = html.Div(id='element-to-hide', style={'display':'none'}),\
                                             style={'font-size':'26px'}
                                         ),
                                     ],
-                                    className="box10"
+                                    className="box11"
                                 ),
                                 html.Div(
                                     children=daq.LEDDisplay(
@@ -272,7 +272,7 @@ layout = html.Div(id='element-to-hide', style={'display':'none'}),\
                                             value='0',
                                             color="black"
                                         ),
-                                    className="box11"
+                                    className="box10"
                                 ),
                             ],
                             className="cornerWrapper"
@@ -816,7 +816,7 @@ layout = html.Div(id='element-to-hide', style={'display':'none'}),\
 
 
 @callback(
-    [Output("grafico-1", "figure"), Output('totalVoltage', 'value'), Output('cellMinVoltage', 'value'), Output('idCellMinVoltage', 'value'), Output('totalVoltage', 'color'), Output('cellMinVoltage', 'color'), Output('cellMaxVoltage', 'value'), Output('idCellMaxVoltage', 'value'), Output('k1', 'color'), Output('k2', 'color'), Output('k3', 'color'), Output("safetyFront", "children"), Output("safetyLine", "children"), Output("carStatus", "children"), Output('sw1', 'children'), Output('sw2', 'children'), Output('sw3', 'children'), Output('sw4', 'children'), Output('SpeedFL','value'), Output('SpeedFR','value'), Output('SpeedRL','value'), Output('SpeedRR','value'), Output('LS FL', 'children'), Output('LS FR', 'children'), Output('LS RL', 'children'), Output('LS RR', 'children'), Output('IMD', 'color'), Output('AMS', 'color'), Output('Plausibility', 'color'), Output('tempFL','value'), Output('tempFR','value'), Output('tempRL','value'), Output('tempRR','value'), Output('powerFL','value'), Output('powerFR','value'), Output('powerRL','value'), Output('powerRR','value'), Output('tqComFL','value'), Output('tqComFR','value'), Output('tqComRL','value'), Output('tqComRR','value'), Output('Speed', 'value'), Output('smAMS', 'children'), Output('errorAMS', 'children'), Output("current-Graph", "figure"), Output("YawRate-Graph", "figure"),  Output('volante','value'), Output('power','value'),Output('TV_Value','value'), Output('tvValue', 'color')],
+    [Output("grafico-1", "figure"), Output('totalVoltage', 'value'), Output('cellMinVoltage', 'value'), Output('idCellMinVoltage', 'value'), Output('totalVoltage', 'color'), Output('cellMinVoltage', 'color'), Output('cellMaxVoltage', 'value'), Output('idCellMaxVoltage', 'value'), Output('k1', 'color'), Output('k2', 'color'), Output('k3', 'color'), Output("safetyFront", "children"), Output("safetyLine", "children"), Output("carStatus", "children"), Output('sw1', 'children'), Output('sw2', 'children'), Output('sw3', 'children'), Output('sw4', 'children'), Output('SpeedFL','value'), Output('SpeedFR','value'), Output('SpeedRL','value'), Output('SpeedRR','value'), Output('LS FL', 'children'), Output('LS FR', 'children'), Output('LS RL', 'children'), Output('LS RR', 'children'), Output('IMD', 'color'), Output('AMS', 'color'), Output('totalPower', 'value'), Output('tempFL','value'), Output('tempFR','value'), Output('tempRL','value'), Output('tempRR','value'), Output('powerFL','value'), Output('powerFR','value'), Output('powerRL','value'), Output('powerRR','value'), Output('tqComFL','value'), Output('tqComFR','value'), Output('tqComRL','value'), Output('tqComRR','value'), Output('Speed', 'value'), Output('smAMS', 'children'), Output('errorAMS', 'children'), Output("current-Graph", "figure"), Output("YawRate-Graph", "figure"),  Output('volante','value'), Output('power','value'),Output('TV_Value','value'), Output('tvValue', 'color')],
     Input('int-component', 'n_intervals'),
 )
 def acutaliza(N):
@@ -842,11 +842,12 @@ def acutaliza(N):
     steering = interfaceUpdater.updateSteeringWheel(redisConector.get_value('0181'))
     power, torqueValue = interfaceUpdater.dashData(redisConector.get_value('00a2'))
     tvRunning = interfaceUpdater.tvRunning(redisConector.get_value('00f0'))
+    totalPower = interfaceUpdater.getTotalPower(redisConector.get_value('00f2'))
     #print("aaaa")
     #print(carState)
     #end = time.time()
     #print(end-begining)
-    return figura1, totalVoltage, minVoltage, idMinVoltage, voltageColor, voltageColor, maxVoltage, idMaxVoltage, k1, k2, k3, safetyFront, safetyValue, carState, sw1, sw2, sw3, sw4, speedFL, speedFR, speedRL, speedRR, ls1, ls2, ls3, ls4, imd, ams, plausibility, tempFL, tempFR, tempRL, tempRR, powerFL, powerFR, powerRL, powerRR, tqComFL, tqComFR, tqComRL, tqComRR, speed, smAMS, errorAMS, currentFigure, yawRateFigure, steering, power, torqueValue, tvRunning
+    return figura1, totalVoltage, minVoltage, idMinVoltage, voltageColor, voltageColor, maxVoltage, idMaxVoltage, k1, k2, k3, safetyFront, safetyValue, carState, sw1, sw2, sw3, sw4, speedFL, speedFR, speedRL, speedRR, ls1, ls2, ls3, ls4, imd, ams, totalPower, tempFL, tempFR, tempRL, tempRR, powerFL, powerFR, powerRL, powerRR, tqComFL, tqComFR, tqComRL, tqComRR, speed, smAMS, errorAMS, currentFigure, yawRateFigure, steering, power, torqueValue, tvRunning
 
 @callback(
     [Output("modal", "is_open"), Output("motorContent", "children")],
