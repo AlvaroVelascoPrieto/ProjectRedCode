@@ -243,7 +243,7 @@ def currents(data1, data2, data3, data4):
     return figure_1
 
 def getTotalPower(data):
-    power = int(data[0:2][0:2] + data[2:4][0:2] + data[4:6][0:2] + data[6:8][0:2],base=16)
+    power = round(int(data[0:2][0:2] + data[2:4][0:2] + data[4:6][0:2] + data[6:8][0:2],base=16)/1000,2)
     return power
 
 
