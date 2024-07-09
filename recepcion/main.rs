@@ -35,4 +35,21 @@ fn main() -> std::io::Result<()> {
         }
         Err(error) => println!("Unable to create Redis client: {}", error),
     }
+
+    loop {
+        let mut buf = [0; 10];
+        let result = socket.recv_from(&mut buf).expect("Didn't receive data");;
+        match result {
+            Ok((amt, src)) => {
+              data = Vec::from(&buf[0..amt]);
+            },
+            Err(err) => println!("Read error: {}", err)
+        }
+        let id = to_string(&data[1..=4])
+        let data to_string(&data[4..])
+        match client.set(id, data) {
+            Err(error) => println!("Unable to set value in Redis: {}", error),
+            _ => println!("Value set in Redis"),
+        };        
+    }
 }

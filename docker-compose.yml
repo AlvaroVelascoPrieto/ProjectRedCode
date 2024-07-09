@@ -11,7 +11,7 @@ services:
       image: app2
       ports:
         - "8051:8051"
-        - "3002:3002/udp"
+        - "37020:37020/udp"
       depends_on:
         - redis  
      

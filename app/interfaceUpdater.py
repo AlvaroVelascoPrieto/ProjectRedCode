@@ -39,15 +39,15 @@ statuses = [
 
 
 STATES = {'00' : 'Safe 1',
-    '03' : 'Safe 2 Front',
-    '07' : 'Safe 3 Mainhoop',
-    '08' : 'Safe 4 Accu',
-    '09' : 'Safe 5 RL',
-    '0a' : 'Safe 6 RR',
-    '0b' : 'Safe 7 BSPD',
-    '0c' : 'Safe 8 Interlocks',
-    '0d' : 'Safe End Vload',
-    '0e' : 'Safe OK'
+    '02' : 'Safe 2 FRONT',
+    '08' : 'Safe 3 Mainhoop',
+    '09' : 'Safe 4 Accu',
+    '0a' : 'Safe 5 RL',
+    '0b' : 'Safe 6 RR',
+    '0c' : 'Safe 7 BSPD',
+    '0d' : 'Safe 8 Interlocks',
+    '0e' : 'Safe End Vload',
+    '0f' : 'Safe OK'
 }
 
 CARSTATES = {
@@ -241,6 +241,13 @@ def currents(data1, data2, data3, data4):
     )
     figure_1['layout']['yaxis'] = {'range': (-200, 200)}
     return figure_1
+
+def getTempIGBTS(data, data1, data2, data3):
+    tempFL = int(data[14:16] + data[12:14], base=16)*0.0625
+    tempFR = int(data1[14:16] + data1[12:14], base=16)*0.0625
+    tempRL = int(data2[14:16] + data2[12:14], base=16)*0.0625
+    tempRR = int(data3[14:16] + data3[12:14], base=16)*0.0625
+    return tempFL, tempFR, tempRL, tempRR
 
 def getTotalPower(data):
     power = round(int(data[0:2][0:2] + data[2:4][0:2] + data[4:6][0:2] + data[6:8][0:2],base=16)/1000,2)
